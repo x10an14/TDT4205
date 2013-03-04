@@ -1,0 +1,292 @@
+1,287c1,3
+< TOKEN ( 262,	'FUNC' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+< TOKEN ( 262,	'FUNC' )
+< TOKEN ( 260,	'g' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'b' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'c' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'u' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'v' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'w' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'z' )
+< TOKEN ( 260,	'u' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 260,	'v' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 260,	'w' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'g' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'z' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 258,	'3' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 260,	'u' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'v' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'w' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+< TOKEN ( 262,	'FUNC' )
+< TOKEN ( 260,	'h' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'b' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 258,	'3' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'3' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 42,	'*' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'4' )
+< TOKEN ( 47,	'/' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'6' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 258,	'3' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 42,	'*' )
+< TOKEN ( 258,	'4' )
+< TOKEN ( 47,	'/' )
+< TOKEN ( 258,	'5' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+<  PROGRAM
+<  FUNCTION_LIST
+<   FUNCTION_LIST
+<    FUNCTION_LIST
+<     FUNCTION
+<      VARIABLE("f")
+<      (nil)
+<      STATEMENT
+<       BLOCK
+<        (nil)
+<        STATEMENT_LIST
+<         STATEMENT
+<          RETURN_STATEMENT
+<           EXPRESSION(nil)
+<            INTEGER(0)
+<    FUNCTION
+<     VARIABLE("g")
+<     PARAMETER_LIST
+<      VARIABLE_LIST
+<       VARIABLE_LIST
+<        VARIABLE_LIST
+<         VARIABLE("a")
+<        VARIABLE("b")
+<       VARIABLE("c")
+<     STATEMENT
+<      BLOCK
+<       DECLARATION_LIST
+<        DECLARATION_LIST
+<         (nil)
+<         DECLARATION
+<          VARIABLE_LIST
+<           VARIABLE_LIST
+<            VARIABLE_LIST
+<             VARIABLE("u")
+<            VARIABLE("v")
+<           VARIABLE("w")
+<        DECLARATION
+<         VARIABLE_LIST
+<          VARIABLE_LIST
+<           VARIABLE_LIST
+<            VARIABLE("x")
+<           VARIABLE("y")
+<          VARIABLE("z")
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT_LIST
+<          STATEMENT_LIST
+<           STATEMENT_LIST
+<            STATEMENT
+<             ASSIGNMENT_STATEMENT
+<              VARIABLE("u")
+<              EXPRESSION(nil)
+<               INTEGER(1)
+<           STATEMENT
+<            ASSIGNMENT_STATEMENT
+<             VARIABLE("v")
+<             EXPRESSION(nil)
+<              INTEGER(2)
+<          STATEMENT
+<           ASSIGNMENT_STATEMENT
+<            VARIABLE("w")
+<            EXPRESSION("F")
+<             VARIABLE("g")
+<             ARGUMENT_LIST
+<              EXPRESSION_LIST
+<               EXPRESSION_LIST
+<                EXPRESSION_LIST
+<                 EXPRESSION("+")
+<                  EXPRESSION(nil)
+<                   VARIABLE("x")
+<                  EXPRESSION(nil)
+<                   INTEGER(1)
+<                EXPRESSION("+")
+<                 EXPRESSION(nil)
+<                  VARIABLE("y")
+<                 EXPRESSION(nil)
+<                  INTEGER(2)
+<               EXPRESSION("+")
+<                EXPRESSION(nil)
+<                 VARIABLE("z")
+<                EXPRESSION(nil)
+<                 INTEGER(3)
+<         STATEMENT
+<          PRINT_STATEMENT
+<           PRINT_LIST
+<            PRINT_LIST
+<             PRINT_LIST
+<              PRINT_ITEM
+<               EXPRESSION(nil)
+<                VARIABLE("u")
+<             PRINT_ITEM
+<              EXPRESSION(nil)
+<               VARIABLE("v")
+<            PRINT_ITEM
+<             EXPRESSION(nil)
+<              VARIABLE("w")
+<        STATEMENT
+<         RETURN_STATEMENT
+<          EXPRESSION(nil)
+<           INTEGER(0)
+<   FUNCTION
+<    VARIABLE("h")
+<    PARAMETER_LIST
+<     VARIABLE_LIST
+<      VARIABLE_LIST
+<       VARIABLE("a")
+<      VARIABLE("b")
+<    STATEMENT
+<     BLOCK
+<      DECLARATION_LIST
+<       (nil)
+<       DECLARATION
+<        VARIABLE_LIST
+<         VARIABLE("x")
+<      STATEMENT_LIST
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT_LIST
+<          STATEMENT_LIST
+<           STATEMENT_LIST
+<            STATEMENT_LIST
+<             STATEMENT
+<              ASSIGNMENT_STATEMENT
+<               VARIABLE("x")
+<               EXPRESSION("+")
+<                EXPRESSION(nil)
+<                 INTEGER(2)
+<                EXPRESSION(nil)
+<                 INTEGER(3)
+<            STATEMENT
+<             ASSIGNMENT_STATEMENT
+<              VARIABLE("x")
+<              EXPRESSION("-")
+<               EXPRESSION(nil)
+<                INTEGER(3)
+<               EXPRESSION(nil)
+<                INTEGER(2)
+<           STATEMENT
+<            ASSIGNMENT_STATEMENT
+<             VARIABLE("x")
+<             EXPRESSION("*")
+<              EXPRESSION(nil)
+<               INTEGER(2)
+<              EXPRESSION(nil)
+<               INTEGER(2)
+<          STATEMENT
+<           ASSIGNMENT_STATEMENT
+<            VARIABLE("x")
+<            EXPRESSION("/")
+<             EXPRESSION(nil)
+<              INTEGER(4)
+<             EXPRESSION(nil)
+<              INTEGER(2)
+<         STATEMENT
+<          ASSIGNMENT_STATEMENT
+<           VARIABLE("x")
+<           EXPRESSION("-")
+<            EXPRESSION(nil)
+<             INTEGER(6)
+<        STATEMENT
+<         ASSIGNMENT_STATEMENT
+<          VARIABLE("x")
+<          EXPRESSION("/")
+<           EXPRESSION("*")
+<            EXPRESSION(nil)
+<             EXPRESSION("+")
+<              EXPRESSION(nil)
+<               INTEGER(2)
+<              EXPRESSION(nil)
+<               INTEGER(3)
+<            EXPRESSION(nil)
+<             INTEGER(4)
+<           EXPRESSION(nil)
+<            INTEGER(5)
+<       STATEMENT
+<        RETURN_STATEMENT
+<         EXPRESSION(nil)
+<          INTEGER(0)
+---
+> TOKEN ( 265,	'// Function list
+> ' )
+> 	Error: syntax error detected at line 2

@@ -1,0 +1,31 @@
+2,29c2
+< TOKEN ( 260,	'hello' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"Hello, world!"' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+<  PROGRAM
+<  FUNCTION_LIST
+<   FUNCTION
+<    VARIABLE("hello")
+<    (nil)
+<    STATEMENT
+<     BLOCK
+<      (nil)
+<      STATEMENT_LIST
+<       STATEMENT_LIST
+<        STATEMENT
+<         PRINT_STATEMENT
+<          PRINT_LIST
+<           PRINT_ITEM
+<            TEXT
+<       STATEMENT
+<        RETURN_STATEMENT
+<         EXPRESSION(nil)
+<          INTEGER(0)
+---
+> 	Error: syntax error detected at line 1

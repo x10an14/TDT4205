@@ -1,0 +1,163 @@
+2,161c2
+< TOKEN ( 260,	'fibonacci_iterative' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'i' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 266,	'IF' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 277,	'>=' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 267,	'THEN' )
+< TOKEN ( 274,	'FOR' )
+< TOKEN ( 260,	'i' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 275,	'TO' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 271,	'DO' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 125,	'}' )
+< TOKEN ( 272,	'DONE' )
+< TOKEN ( 269,	'FI' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"Fibonacci number #"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+<  PROGRAM
+<  FUNCTION_LIST
+<   FUNCTION
+<    VARIABLE("fibonacci_iterative")
+<    PARAMETER_LIST
+<     VARIABLE_LIST
+<      VARIABLE("n")
+<    STATEMENT
+<     BLOCK
+<      DECLARATION_LIST
+<       (nil)
+<       DECLARATION
+<        VARIABLE_LIST
+<         VARIABLE_LIST
+<          VARIABLE_LIST
+<           VARIABLE_LIST
+<            VARIABLE("x")
+<           VARIABLE("y")
+<          VARIABLE("f")
+<         VARIABLE("i")
+<      STATEMENT_LIST
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT_LIST
+<          STATEMENT_LIST
+<           STATEMENT_LIST
+<            STATEMENT
+<             ASSIGNMENT_STATEMENT
+<              VARIABLE("x")
+<              EXPRESSION(nil)
+<               INTEGER(1)
+<           STATEMENT
+<            ASSIGNMENT_STATEMENT
+<             VARIABLE("y")
+<             EXPRESSION(nil)
+<              INTEGER(1)
+<          STATEMENT
+<           ASSIGNMENT_STATEMENT
+<            VARIABLE("f")
+<            EXPRESSION(nil)
+<             INTEGER(1)
+<         STATEMENT
+<          IF_STATEMENT
+<           EXPRESSION(">=")
+<            EXPRESSION(nil)
+<             VARIABLE("n")
+<            EXPRESSION(nil)
+<             INTEGER(2)
+<           STATEMENT
+<            FOR_STATEMENT
+<             ASSIGNMENT_STATEMENT
+<              VARIABLE("i")
+<              EXPRESSION(nil)
+<               INTEGER(2)
+<             EXPRESSION(nil)
+<              VARIABLE("n")
+<             STATEMENT
+<              BLOCK
+<               (nil)
+<               STATEMENT_LIST
+<                STATEMENT_LIST
+<                 STATEMENT_LIST
+<                  STATEMENT
+<                   ASSIGNMENT_STATEMENT
+<                    VARIABLE("f")
+<                    EXPRESSION("+")
+<                     EXPRESSION(nil)
+<                      VARIABLE("x")
+<                     EXPRESSION(nil)
+<                      VARIABLE("y")
+<                 STATEMENT
+<                  ASSIGNMENT_STATEMENT
+<                   VARIABLE("x")
+<                   EXPRESSION(nil)
+<                    VARIABLE("y")
+<                STATEMENT
+<                 ASSIGNMENT_STATEMENT
+<                  VARIABLE("y")
+<                  EXPRESSION(nil)
+<                   VARIABLE("f")
+<        STATEMENT
+<         PRINT_STATEMENT
+<          PRINT_LIST
+<           PRINT_LIST
+<            PRINT_LIST
+<             PRINT_LIST
+<              PRINT_ITEM
+<               TEXT
+<             PRINT_ITEM
+<              EXPRESSION(nil)
+<               VARIABLE("n")
+<            PRINT_ITEM
+<             TEXT
+<           PRINT_ITEM
+<            EXPRESSION(nil)
+<             VARIABLE("f")
+<       STATEMENT
+<        RETURN_STATEMENT
+<         EXPRESSION(nil)
+<          INTEGER(0)
+---
+> 	Error: syntax error detected at line 1

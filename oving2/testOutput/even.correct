@@ -1,0 +1,89 @@
+TOKEN ( 262,	'FUNC' )
+TOKEN ( 260,	'even' )
+TOKEN ( 40,	'(' )
+TOKEN ( 260,	'a' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'b' )
+TOKEN ( 41,	')' )
+TOKEN ( 123,	'{' )
+TOKEN ( 273,	'VAR' )
+TOKEN ( 260,	'i' )
+TOKEN ( 274,	'FOR' )
+TOKEN ( 260,	'i' )
+TOKEN ( 261,	':=' )
+TOKEN ( 260,	'a' )
+TOKEN ( 275,	'TO' )
+TOKEN ( 260,	'b' )
+TOKEN ( 271,	'DO' )
+TOKEN ( 123,	'{' )
+TOKEN ( 266,	'IF' )
+TOKEN ( 260,	'i' )
+TOKEN ( 47,	'/' )
+TOKEN ( 258,	'2' )
+TOKEN ( 62,	'>' )
+TOKEN ( 40,	'(' )
+TOKEN ( 260,	'i' )
+TOKEN ( 45,	'-' )
+TOKEN ( 258,	'1' )
+TOKEN ( 41,	')' )
+TOKEN ( 47,	'/' )
+TOKEN ( 258,	'2' )
+TOKEN ( 267,	'THEN' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 260,	'i' )
+TOKEN ( 269,	'FI' )
+TOKEN ( 125,	'}' )
+TOKEN ( 272,	'DONE' )
+TOKEN ( 125,	'}' )
+ PROGRAM
+ FUNCTION_LIST
+  FUNCTION
+   VARIABLE("even")
+   PARAMETER_LIST
+    VARIABLE_LIST
+     VARIABLE_LIST
+      VARIABLE("a")
+     VARIABLE("b")
+   STATEMENT
+    BLOCK
+     DECLARATION_LIST
+      (nil)
+      DECLARATION
+       VARIABLE_LIST
+        VARIABLE("i")
+     STATEMENT_LIST
+      STATEMENT
+       FOR_STATEMENT
+        ASSIGNMENT_STATEMENT
+         VARIABLE("i")
+         EXPRESSION(nil)
+          VARIABLE("a")
+        EXPRESSION(nil)
+         VARIABLE("b")
+        STATEMENT
+         BLOCK
+          (nil)
+          STATEMENT_LIST
+           STATEMENT
+            IF_STATEMENT
+             EXPRESSION(">")
+              EXPRESSION("/")
+               EXPRESSION(nil)
+                VARIABLE("i")
+               EXPRESSION(nil)
+                INTEGER(2)
+              EXPRESSION("/")
+               EXPRESSION(nil)
+                EXPRESSION("-")
+                 EXPRESSION(nil)
+                  VARIABLE("i")
+                 EXPRESSION(nil)
+                  INTEGER(1)
+               EXPRESSION(nil)
+                INTEGER(2)
+             STATEMENT
+              PRINT_STATEMENT
+               PRINT_LIST
+                PRINT_ITEM
+                 EXPRESSION(nil)
+                  VARIABLE("i")

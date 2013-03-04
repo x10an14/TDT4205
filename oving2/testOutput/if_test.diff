@@ -1,0 +1,123 @@
+1,118c1,3
+< TOKEN ( 262,	'FUNC' )
+< TOKEN ( 260,	'while_test' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'b' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'10' )
+< TOKEN ( 260,	'b' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'15' )
+< TOKEN ( 266,	'IF' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'10' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 267,	'THEN' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"A is different from 10"' )
+< TOKEN ( 269,	'FI' )
+< TOKEN ( 266,	'IF' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 267,	'THEN' )
+< TOKEN ( 266,	'IF' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'b' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 258,	'15' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 267,	'THEN' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"B is different from -15"' )
+< TOKEN ( 268,	'ELSE' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"B equals -15"' )
+< TOKEN ( 269,	'FI' )
+< TOKEN ( 269,	'FI' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+<  PROGRAM
+<  FUNCTION_LIST
+<   FUNCTION
+<    VARIABLE("while_test")
+<    (nil)
+<    STATEMENT
+<     BLOCK
+<      DECLARATION_LIST
+<       (nil)
+<       DECLARATION
+<        VARIABLE_LIST
+<         VARIABLE_LIST
+<          VARIABLE("a")
+<         VARIABLE("b")
+<      STATEMENT_LIST
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT_LIST
+<          STATEMENT_LIST
+<           STATEMENT
+<            ASSIGNMENT_STATEMENT
+<             VARIABLE("a")
+<             EXPRESSION(nil)
+<              INTEGER(10)
+<          STATEMENT
+<           ASSIGNMENT_STATEMENT
+<            VARIABLE("b")
+<            EXPRESSION("-")
+<             EXPRESSION(nil)
+<              INTEGER(15)
+<         STATEMENT
+<          IF_STATEMENT
+<           EXPRESSION(nil)
+<            EXPRESSION("-")
+<             EXPRESSION(nil)
+<              VARIABLE("a")
+<             EXPRESSION(nil)
+<              INTEGER(10)
+<           STATEMENT
+<            PRINT_STATEMENT
+<             PRINT_LIST
+<              PRINT_ITEM
+<               TEXT
+<        STATEMENT
+<         IF_STATEMENT
+<          EXPRESSION(nil)
+<           EXPRESSION(nil)
+<            VARIABLE("a")
+<          STATEMENT
+<           IF_STATEMENT
+<            EXPRESSION(nil)
+<             EXPRESSION("+")
+<              EXPRESSION(nil)
+<               VARIABLE("b")
+<              EXPRESSION(nil)
+<               INTEGER(15)
+<            STATEMENT
+<             PRINT_STATEMENT
+<              PRINT_LIST
+<               PRINT_ITEM
+<                TEXT
+<            STATEMENT
+<             PRINT_STATEMENT
+<              PRINT_LIST
+<               PRINT_ITEM
+<                TEXT
+<       STATEMENT
+<        RETURN_STATEMENT
+<         EXPRESSION(nil)
+<          INTEGER(0)
+---
+> TOKEN ( 265,	'// This program is a simple test of conditionals, including nesting
+> ' )
+> 	Error: syntax error detected at line 2

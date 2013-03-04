@@ -1,0 +1,225 @@
+2,223c2
+< TOKEN ( 260,	'hello' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	't' )
+< TOKEN ( 260,	't' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'test' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 258,	'42' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+< TOKEN ( 262,	'FUNC' )
+< TOKEN ( 260,	'test' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'32' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'20' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"Outer x is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"y is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"parm is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'64' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"Inner x is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"y is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"parm is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 125,	'}' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"Outer x is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'x' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"y is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"parm is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'a' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+<  PROGRAM
+<  FUNCTION_LIST
+<   FUNCTION_LIST
+<    FUNCTION
+<     VARIABLE("hello")
+<     (nil)
+<     STATEMENT
+<      BLOCK
+<       DECLARATION_LIST
+<        (nil)
+<        DECLARATION
+<         VARIABLE_LIST
+<          VARIABLE("t")
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT
+<          ASSIGNMENT_STATEMENT
+<           VARIABLE("t")
+<           EXPRESSION("F")
+<            VARIABLE("test")
+<            ARGUMENT_LIST
+<             EXPRESSION_LIST
+<              EXPRESSION(nil)
+<               INTEGER(42)
+<        STATEMENT
+<         RETURN_STATEMENT
+<          EXPRESSION(nil)
+<           INTEGER(0)
+<   FUNCTION
+<    VARIABLE("test")
+<    PARAMETER_LIST
+<     VARIABLE_LIST
+<      VARIABLE("a")
+<    STATEMENT
+<     BLOCK
+<      DECLARATION_LIST
+<       (nil)
+<       DECLARATION
+<        VARIABLE_LIST
+<         VARIABLE_LIST
+<          VARIABLE("x")
+<         VARIABLE("y")
+<      STATEMENT_LIST
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT_LIST
+<          STATEMENT_LIST
+<           STATEMENT_LIST
+<            STATEMENT
+<             ASSIGNMENT_STATEMENT
+<              VARIABLE("x")
+<              EXPRESSION(nil)
+<               INTEGER(32)
+<           STATEMENT
+<            ASSIGNMENT_STATEMENT
+<             VARIABLE("y")
+<             EXPRESSION(nil)
+<              INTEGER(20)
+<          STATEMENT
+<           PRINT_STATEMENT
+<            PRINT_LIST
+<             PRINT_LIST
+<              PRINT_LIST
+<               PRINT_LIST
+<                PRINT_LIST
+<                 PRINT_LIST
+<                  PRINT_ITEM
+<                   TEXT
+<                 PRINT_ITEM
+<                  EXPRESSION(nil)
+<                   VARIABLE("x")
+<                PRINT_ITEM
+<                 TEXT
+<               PRINT_ITEM
+<                EXPRESSION(nil)
+<                 VARIABLE("y")
+<              PRINT_ITEM
+<               TEXT
+<             PRINT_ITEM
+<              EXPRESSION(nil)
+<               VARIABLE("a")
+<         STATEMENT
+<          BLOCK
+<           DECLARATION_LIST
+<            (nil)
+<            DECLARATION
+<             VARIABLE_LIST
+<              VARIABLE("x")
+<           STATEMENT_LIST
+<            STATEMENT_LIST
+<             STATEMENT
+<              ASSIGNMENT_STATEMENT
+<               VARIABLE("x")
+<               EXPRESSION(nil)
+<                INTEGER(64)
+<            STATEMENT
+<             PRINT_STATEMENT
+<              PRINT_LIST
+<               PRINT_LIST
+<                PRINT_LIST
+<                 PRINT_LIST
+<                  PRINT_LIST
+<                   PRINT_LIST
+<                    PRINT_ITEM
+<                     TEXT
+<                   PRINT_ITEM
+<                    EXPRESSION(nil)
+<                     VARIABLE("x")
+<                  PRINT_ITEM
+<                   TEXT
+<                 PRINT_ITEM
+<                  EXPRESSION(nil)
+<                   VARIABLE("y")
+<                PRINT_ITEM
+<                 TEXT
+<               PRINT_ITEM
+<                EXPRESSION(nil)
+<                 VARIABLE("a")
+<        STATEMENT
+<         PRINT_STATEMENT
+<          PRINT_LIST
+<           PRINT_LIST
+<            PRINT_LIST
+<             PRINT_LIST
+<              PRINT_LIST
+<               PRINT_LIST
+<                PRINT_ITEM
+<                 TEXT
+<               PRINT_ITEM
+<                EXPRESSION(nil)
+<                 VARIABLE("x")
+<              PRINT_ITEM
+<               TEXT
+<             PRINT_ITEM
+<              EXPRESSION(nil)
+<               VARIABLE("y")
+<            PRINT_ITEM
+<             TEXT
+<           PRINT_ITEM
+<            EXPRESSION(nil)
+<             VARIABLE("a")
+<       STATEMENT
+<        RETURN_STATEMENT
+<         EXPRESSION(nil)
+<          INTEGER(0)
+---
+> 	Error: syntax error detected at line 1

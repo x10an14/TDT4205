@@ -1,0 +1,268 @@
+TOKEN ( 262,	'FUNC' )
+TOKEN ( 260,	'funcall' )
+TOKEN ( 40,	'(' )
+TOKEN ( 41,	')' )
+TOKEN ( 123,	'{' )
+TOKEN ( 273,	'VAR' )
+TOKEN ( 260,	'x' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'y' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'z' )
+TOKEN ( 260,	'x' )
+TOKEN ( 261,	':=' )
+TOKEN ( 258,	'5' )
+TOKEN ( 260,	'y' )
+TOKEN ( 261,	':=' )
+TOKEN ( 258,	'10' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"Calling my_function with parameters"' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'x' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'y' )
+TOKEN ( 260,	'z' )
+TOKEN ( 261,	':=' )
+TOKEN ( 260,	'my_function' )
+TOKEN ( 40,	'(' )
+TOKEN ( 260,	'x' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'y' )
+TOKEN ( 41,	')' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"The returned result is"' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'z' )
+TOKEN ( 260,	'z' )
+TOKEN ( 261,	':=' )
+TOKEN ( 260,	'my_other_function' )
+TOKEN ( 40,	'(' )
+TOKEN ( 41,	')' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"The other returned result is"' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'z' )
+TOKEN ( 264,	'RETURN' )
+TOKEN ( 258,	'0' )
+TOKEN ( 125,	'}' )
+TOKEN ( 262,	'FUNC' )
+TOKEN ( 260,	'my_function' )
+TOKEN ( 40,	'(' )
+TOKEN ( 260,	's' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	't' )
+TOKEN ( 41,	')' )
+TOKEN ( 123,	'{' )
+TOKEN ( 273,	'VAR' )
+TOKEN ( 260,	'u' )
+TOKEN ( 260,	'u' )
+TOKEN ( 261,	':=' )
+TOKEN ( 260,	's' )
+TOKEN ( 42,	'*' )
+TOKEN ( 260,	's' )
+TOKEN ( 43,	'+' )
+TOKEN ( 260,	't' )
+TOKEN ( 42,	'*' )
+TOKEN ( 260,	't' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"Parameter s is"' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	's' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"Parameter t is"' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	't' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"The sum of their squares is"' )
+TOKEN ( 44,	',' )
+TOKEN ( 260,	'u' )
+TOKEN ( 264,	'RETURN' )
+TOKEN ( 260,	'u' )
+TOKEN ( 125,	'}' )
+TOKEN ( 262,	'FUNC' )
+TOKEN ( 260,	'my_other_function' )
+TOKEN ( 40,	'(' )
+TOKEN ( 41,	')' )
+TOKEN ( 123,	'{' )
+TOKEN ( 273,	'VAR' )
+TOKEN ( 260,	'x' )
+TOKEN ( 260,	'x' )
+TOKEN ( 261,	':=' )
+TOKEN ( 258,	'42' )
+TOKEN ( 264,	'RETURN' )
+TOKEN ( 260,	'x' )
+TOKEN ( 125,	'}' )
+ PROGRAM
+ FUNCTION_LIST
+  FUNCTION_LIST
+   FUNCTION_LIST
+    FUNCTION
+     VARIABLE("funcall")
+     (nil)
+     STATEMENT
+      BLOCK
+       DECLARATION_LIST
+        (nil)
+        DECLARATION
+         VARIABLE_LIST
+          VARIABLE_LIST
+           VARIABLE_LIST
+            VARIABLE("x")
+           VARIABLE("y")
+          VARIABLE("z")
+       STATEMENT_LIST
+        STATEMENT_LIST
+         STATEMENT_LIST
+          STATEMENT_LIST
+           STATEMENT_LIST
+            STATEMENT_LIST
+             STATEMENT_LIST
+              STATEMENT_LIST
+               STATEMENT
+                ASSIGNMENT_STATEMENT
+                 VARIABLE("x")
+                 EXPRESSION(nil)
+                  INTEGER(5)
+              STATEMENT
+               ASSIGNMENT_STATEMENT
+                VARIABLE("y")
+                EXPRESSION(nil)
+                 INTEGER(10)
+             STATEMENT
+              PRINT_STATEMENT
+               PRINT_LIST
+                PRINT_LIST
+                 PRINT_LIST
+                  PRINT_ITEM
+                   TEXT
+                 PRINT_ITEM
+                  EXPRESSION(nil)
+                   VARIABLE("x")
+                PRINT_ITEM
+                 EXPRESSION(nil)
+                  VARIABLE("y")
+            STATEMENT
+             ASSIGNMENT_STATEMENT
+              VARIABLE("z")
+              EXPRESSION("F")
+               VARIABLE("my_function")
+               ARGUMENT_LIST
+                EXPRESSION_LIST
+                 EXPRESSION_LIST
+                  EXPRESSION(nil)
+                   VARIABLE("x")
+                 EXPRESSION(nil)
+                  VARIABLE("y")
+           STATEMENT
+            PRINT_STATEMENT
+             PRINT_LIST
+              PRINT_LIST
+               PRINT_ITEM
+                TEXT
+              PRINT_ITEM
+               EXPRESSION(nil)
+                VARIABLE("z")
+          STATEMENT
+           ASSIGNMENT_STATEMENT
+            VARIABLE("z")
+            EXPRESSION("F")
+             VARIABLE("my_other_function")
+             (nil)
+         STATEMENT
+          PRINT_STATEMENT
+           PRINT_LIST
+            PRINT_LIST
+             PRINT_ITEM
+              TEXT
+            PRINT_ITEM
+             EXPRESSION(nil)
+              VARIABLE("z")
+        STATEMENT
+         RETURN_STATEMENT
+          EXPRESSION(nil)
+           INTEGER(0)
+   FUNCTION
+    VARIABLE("my_function")
+    PARAMETER_LIST
+     VARIABLE_LIST
+      VARIABLE_LIST
+       VARIABLE("s")
+      VARIABLE("t")
+    STATEMENT
+     BLOCK
+      DECLARATION_LIST
+       (nil)
+       DECLARATION
+        VARIABLE_LIST
+         VARIABLE("u")
+      STATEMENT_LIST
+       STATEMENT_LIST
+        STATEMENT_LIST
+         STATEMENT_LIST
+          STATEMENT_LIST
+           STATEMENT
+            ASSIGNMENT_STATEMENT
+             VARIABLE("u")
+             EXPRESSION("+")
+              EXPRESSION("*")
+               EXPRESSION(nil)
+                VARIABLE("s")
+               EXPRESSION(nil)
+                VARIABLE("s")
+              EXPRESSION("*")
+               EXPRESSION(nil)
+                VARIABLE("t")
+               EXPRESSION(nil)
+                VARIABLE("t")
+          STATEMENT
+           PRINT_STATEMENT
+            PRINT_LIST
+             PRINT_LIST
+              PRINT_ITEM
+               TEXT
+             PRINT_ITEM
+              EXPRESSION(nil)
+               VARIABLE("s")
+         STATEMENT
+          PRINT_STATEMENT
+           PRINT_LIST
+            PRINT_LIST
+             PRINT_ITEM
+              TEXT
+            PRINT_ITEM
+             EXPRESSION(nil)
+              VARIABLE("t")
+        STATEMENT
+         PRINT_STATEMENT
+          PRINT_LIST
+           PRINT_LIST
+            PRINT_ITEM
+             TEXT
+           PRINT_ITEM
+            EXPRESSION(nil)
+             VARIABLE("u")
+       STATEMENT
+        RETURN_STATEMENT
+         EXPRESSION(nil)
+          VARIABLE("u")
+  FUNCTION
+   VARIABLE("my_other_function")
+   (nil)
+   STATEMENT
+    BLOCK
+     DECLARATION_LIST
+      (nil)
+      DECLARATION
+       VARIABLE_LIST
+        VARIABLE("x")
+     STATEMENT_LIST
+      STATEMENT_LIST
+       STATEMENT
+        ASSIGNMENT_STATEMENT
+         VARIABLE("x")
+         EXPRESSION(nil)
+          INTEGER(42)
+      STATEMENT
+       RETURN_STATEMENT
+        EXPRESSION(nil)
+         VARIABLE("x")

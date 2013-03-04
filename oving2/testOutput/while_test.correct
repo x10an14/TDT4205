@@ -1,0 +1,130 @@
+TOKEN ( 262,	'FUNC' )
+TOKEN ( 260,	'while_test' )
+TOKEN ( 40,	'(' )
+TOKEN ( 41,	')' )
+TOKEN ( 123,	'{' )
+TOKEN ( 273,	'VAR' )
+TOKEN ( 260,	'a' )
+TOKEN ( 260,	'a' )
+TOKEN ( 261,	':=' )
+TOKEN ( 258,	'20' )
+TOKEN ( 270,	'WHILE' )
+TOKEN ( 40,	'(' )
+TOKEN ( 260,	'a' )
+TOKEN ( 41,	')' )
+TOKEN ( 271,	'DO' )
+TOKEN ( 123,	'{' )
+TOKEN ( 266,	'IF' )
+TOKEN ( 40,	'(' )
+TOKEN ( 260,	'a' )
+TOKEN ( 45,	'-' )
+TOKEN ( 258,	'11' )
+TOKEN ( 41,	')' )
+TOKEN ( 267,	'THEN' )
+TOKEN ( 123,	'{' )
+TOKEN ( 260,	'a' )
+TOKEN ( 261,	':=' )
+TOKEN ( 260,	'a' )
+TOKEN ( 45,	'-' )
+TOKEN ( 258,	'1' )
+TOKEN ( 125,	'}' )
+TOKEN ( 268,	'ELSE' )
+TOKEN ( 123,	'{' )
+TOKEN ( 260,	'a' )
+TOKEN ( 261,	':=' )
+TOKEN ( 260,	'a' )
+TOKEN ( 45,	'-' )
+TOKEN ( 258,	'1' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 259,	'"Skip..."' )
+TOKEN ( 265,	'CONTINUE' )
+TOKEN ( 125,	'}' )
+TOKEN ( 269,	'FI' )
+TOKEN ( 263,	'PRINT' )
+TOKEN ( 260,	'a' )
+TOKEN ( 125,	'}' )
+TOKEN ( 272,	'DONE' )
+TOKEN ( 264,	'RETURN' )
+TOKEN ( 258,	'0' )
+TOKEN ( 125,	'}' )
+ PROGRAM
+ FUNCTION_LIST
+  FUNCTION
+   VARIABLE("while_test")
+   (nil)
+   STATEMENT
+    BLOCK
+     DECLARATION_LIST
+      (nil)
+      DECLARATION
+       VARIABLE_LIST
+        VARIABLE("a")
+     STATEMENT_LIST
+      STATEMENT_LIST
+       STATEMENT_LIST
+        STATEMENT
+         ASSIGNMENT_STATEMENT
+          VARIABLE("a")
+          EXPRESSION(nil)
+           INTEGER(20)
+       STATEMENT
+        WHILE_STATEMENT
+         EXPRESSION(nil)
+          EXPRESSION(nil)
+           VARIABLE("a")
+         STATEMENT
+          BLOCK
+           (nil)
+           STATEMENT_LIST
+            STATEMENT_LIST
+             STATEMENT
+              IF_STATEMENT
+               EXPRESSION(nil)
+                EXPRESSION("-")
+                 EXPRESSION(nil)
+                  VARIABLE("a")
+                 EXPRESSION(nil)
+                  INTEGER(11)
+               STATEMENT
+                BLOCK
+                 (nil)
+                 STATEMENT_LIST
+                  STATEMENT
+                   ASSIGNMENT_STATEMENT
+                    VARIABLE("a")
+                    EXPRESSION("-")
+                     EXPRESSION(nil)
+                      VARIABLE("a")
+                     EXPRESSION(nil)
+                      INTEGER(1)
+               STATEMENT
+                BLOCK
+                 (nil)
+                 STATEMENT_LIST
+                  STATEMENT_LIST
+                   STATEMENT_LIST
+                    STATEMENT
+                     ASSIGNMENT_STATEMENT
+                      VARIABLE("a")
+                      EXPRESSION("-")
+                       EXPRESSION(nil)
+                        VARIABLE("a")
+                       EXPRESSION(nil)
+                        INTEGER(1)
+                   STATEMENT
+                    PRINT_STATEMENT
+                     PRINT_LIST
+                      PRINT_ITEM
+                       TEXT
+                  STATEMENT
+                   NULL_STATEMENT
+            STATEMENT
+             PRINT_STATEMENT
+              PRINT_LIST
+               PRINT_ITEM
+                EXPRESSION(nil)
+                 VARIABLE("a")
+      STATEMENT
+       RETURN_STATEMENT
+        EXPRESSION(nil)
+         INTEGER(0)

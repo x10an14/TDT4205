@@ -1,0 +1,181 @@
+2,179c2
+< TOKEN ( 260,	'fibonacci_recursive' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'fibonacci_number' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 263,	'PRINT' )
+< TOKEN ( 259,	'"The"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 259,	'"th fibonacci number is"' )
+< TOKEN ( 44,	',' )
+< TOKEN ( 260,	'f' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 258,	'0' )
+< TOKEN ( 125,	'}' )
+< TOKEN ( 262,	'FUNC' )
+< TOKEN ( 260,	'fibonacci_number' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 123,	'{' )
+< TOKEN ( 273,	'VAR' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 266,	'IF' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 267,	'THEN' )
+< TOKEN ( 266,	'IF' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 267,	'THEN' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 261,	':=' )
+< TOKEN ( 260,	'fibonacci_number' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'1' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 43,	'+' )
+< TOKEN ( 260,	'fibonacci_number' )
+< TOKEN ( 40,	'(' )
+< TOKEN ( 260,	'n' )
+< TOKEN ( 45,	'-' )
+< TOKEN ( 258,	'2' )
+< TOKEN ( 41,	')' )
+< TOKEN ( 269,	'FI' )
+< TOKEN ( 269,	'FI' )
+< TOKEN ( 264,	'RETURN' )
+< TOKEN ( 260,	'y' )
+< TOKEN ( 125,	'}' )
+<  PROGRAM
+<  FUNCTION_LIST
+<   FUNCTION_LIST
+<    FUNCTION
+<     VARIABLE("fibonacci_recursive")
+<     PARAMETER_LIST
+<      VARIABLE_LIST
+<       VARIABLE("n")
+<     STATEMENT
+<      BLOCK
+<       DECLARATION_LIST
+<        (nil)
+<        DECLARATION
+<         VARIABLE_LIST
+<          VARIABLE("f")
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT_LIST
+<          STATEMENT
+<           ASSIGNMENT_STATEMENT
+<            VARIABLE("f")
+<            EXPRESSION("F")
+<             VARIABLE("fibonacci_number")
+<             ARGUMENT_LIST
+<              EXPRESSION_LIST
+<               EXPRESSION(nil)
+<                VARIABLE("n")
+<         STATEMENT
+<          PRINT_STATEMENT
+<           PRINT_LIST
+<            PRINT_LIST
+<             PRINT_LIST
+<              PRINT_LIST
+<               PRINT_ITEM
+<                TEXT
+<              PRINT_ITEM
+<               EXPRESSION(nil)
+<                VARIABLE("n")
+<             PRINT_ITEM
+<              TEXT
+<            PRINT_ITEM
+<             EXPRESSION(nil)
+<              VARIABLE("f")
+<        STATEMENT
+<         RETURN_STATEMENT
+<          EXPRESSION(nil)
+<           INTEGER(0)
+<   FUNCTION
+<    VARIABLE("fibonacci_number")
+<    PARAMETER_LIST
+<     VARIABLE_LIST
+<      VARIABLE("n")
+<    STATEMENT
+<     BLOCK
+<      DECLARATION_LIST
+<       (nil)
+<       DECLARATION
+<        VARIABLE_LIST
+<         VARIABLE("y")
+<      STATEMENT_LIST
+<       STATEMENT_LIST
+<        STATEMENT_LIST
+<         STATEMENT
+<          ASSIGNMENT_STATEMENT
+<           VARIABLE("y")
+<           EXPRESSION(nil)
+<            INTEGER(1)
+<        STATEMENT
+<         IF_STATEMENT
+<          EXPRESSION(nil)
+<           EXPRESSION("-")
+<            EXPRESSION(nil)
+<             VARIABLE("n")
+<            EXPRESSION(nil)
+<             INTEGER(1)
+<          STATEMENT
+<           IF_STATEMENT
+<            EXPRESSION(nil)
+<             EXPRESSION("-")
+<              EXPRESSION(nil)
+<               VARIABLE("n")
+<              EXPRESSION(nil)
+<               INTEGER(2)
+<            STATEMENT
+<             ASSIGNMENT_STATEMENT
+<              VARIABLE("y")
+<              EXPRESSION("+")
+<               EXPRESSION("F")
+<                VARIABLE("fibonacci_number")
+<                ARGUMENT_LIST
+<                 EXPRESSION_LIST
+<                  EXPRESSION("-")
+<                   EXPRESSION(nil)
+<                    VARIABLE("n")
+<                   EXPRESSION(nil)
+<                    INTEGER(1)
+<               EXPRESSION("F")
+<                VARIABLE("fibonacci_number")
+<                ARGUMENT_LIST
+<                 EXPRESSION_LIST
+<                  EXPRESSION("-")
+<                   EXPRESSION(nil)
+<                    VARIABLE("n")
+<                   EXPRESSION(nil)
+<                    INTEGER(2)
+<       STATEMENT
+<        RETURN_STATEMENT
+<         EXPRESSION(nil)
+<          VARIABLE("y")
+---
+> 	Error: syntax error detected at line 1

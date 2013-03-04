@@ -1,0 +1,4 @@
+85c85
+<       INTEGER(-6)
+---
+>       INTEGER(6)
