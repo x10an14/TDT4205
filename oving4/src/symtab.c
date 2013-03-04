@@ -48,17 +48,7 @@ int32_t strings_add (char *str){
 	return strings_index;
 }
 
-void strings_output (FILE *stream){//USE fprintf!!!! (Ikke bry deg om plass sa studass og undass...)
-	//Usage of fprintf
-	fprintf(*stream, ".data\n.INTEGER: .string\"%%d\"\n"); //Print first two lines
-	for (int i = 0; i < strings_index; i++){
-		fprintf(*stream, ".STRING%d: .string \"%s\"\n",i,strings[i]);//Every string line
-	}
-	fprintf(*stream, ".globl main\n");//Last line. (Took the liberty of adding "\n"...)
-	/*//Below is the hacky code I think I got working before I was told I could use fprintf.
-	//This was based on googling and stack overflow of "how to concatenate C strings" av
-	//forskjellige variasjoner...
-	//First count space needed
+void strings_output (FILE *stream){//USE fprintf!!!! (Ikke bry deg om å allokere plass sa studass og undass...)
 	int len[strings_index+3];
 	len[0] = 7; //strlen(".data\n")
 	len[1] = 27; //strlen(".INTEGER: .string \"%%d\"\n")
@@ -73,34 +63,12 @@ void strings_output (FILE *stream){//USE fprintf!!!! (Ikke bry deg om plass sa s
 	tot_len += 12;
 	// len += 12; //strlen(".globl main")+"\0"
 
-	//Then allocate space needed
-	char *out = (char*)malloc(tot_len);
-	char *str = out;
-	//Then concatenate
-	int pos = 0;
-	for (int i = -1; i < strings_index+1; i++){ //Will this work?
-		char buffer[tot_len];
-		if(i > -1 && i < strings_index){
-			snprintf(buffer, tot_len, ".STRING%d: .string \"%s\"\n",i,strings[i]);
-		} else if(i == -1){
-			snprintf(buffer, tot_len, ".data\n.INTEGER: .string \"%%d\"\n");
-		} else{
-			snprintf(buffer, tot_len, ".globl main");
-		}
-		int cur = 0;
-		while(*buffer[cur] != (char*)'\0'){
-			*(str+pos+cur)= *(buffer+cur);
-			cur++;
-		}
-		pos += cur;
+	//Usage of fprintf
+	fprintf(*stream, ".data\n.INTEGER: .string\"%%d\"\n"); //Print first two lines
+	for (int i = 0; i < strings_index; i++){
+		fprintf(*stream, ".STRING%d: .string \"%s\"\n",i,strings[i]);//Every string line
 	}
-
-	//Finishing the stringstream:
-	*(str + ++pos) = (char*)'\0';
-	//Is the below line correct? Or should I replace str with stream from the start?
-	stream = str;
-	//Should I remove this line??
-	free(out);*/
+	fprintf(*stream, ".globl main\n");//Last line. (Took the liberty of adding "\n"...)
 }
 
 void scope_add (void){
