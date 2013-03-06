@@ -28,10 +28,14 @@ void symtab_init (void){
 
 void symtab_finalize (void){
 	for (int i = scopes_index; i >= 0; i--){
+		ght_finalize(scopes[i]);
 		//Delete current scope and all it holds
 		//scope_remove()?
 		//ght_finalize(scopes[i]);?
 		//Delete corresponding values symbol I suppose?
+	}
+	for (int i = values_index; i >= 0; i++){
+		/* code */
 	}
 	free(scopes);
 	free(values);
@@ -93,11 +97,11 @@ void scope_remove (void){
 
 void symbol_insert (char *key, symbol_t *value){
 	if(values_index == values_size){
-		values_size *= 2;
+		values_size = 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
 	}
 	symbol_t *ptr = (symbol_t*)malloc(sizeof(symbol_t));
-	ptr = *value;
+	*ptr = *value;
 	values_index++;
 	values[values_index] = ptr;
 	// ptr->...???
@@ -109,9 +113,22 @@ void symbol_insert (char *key, symbol_t *value){
 
 symbol_t *symbol_get (char *key){
 	symbol_t* result = NULL;
+	int len = strlen(*key);
+	int found = 0;
+	for (int i = scopes_index; i >= 0; i++){
+		result = (*) ght_get(scopes[i], len, key);
+		if(result != NULL){
+			found = 1;
+			break;
+		}
+	}
+	if(found == 0){
+		exit(14);
+	}
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB
 		if ( result != NULL )
 			fprintf ( stderr, "Retrieving (%s,%d)\n", key, result->stack_offset );
 	#endif
+	return result;
 }
