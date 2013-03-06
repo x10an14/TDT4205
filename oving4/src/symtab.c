@@ -97,7 +97,7 @@ void scope_remove (void){
 
 void symbol_insert (char *key, symbol_t *value){
 	if(values_index == values_size){
-		values_size = 2;
+		values_size *= 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
 	}
 	symbol_t *ptr = (symbol_t*)malloc(sizeof(symbol_t));
@@ -116,7 +116,7 @@ symbol_t *symbol_get (char *key){
 	int len = strlen(*key);
 	int found = 0;
 	for (int i = scopes_index; i >= 0; i++){
-		result = (*) ght_get(scopes[i], len, key);
+		result = (symbol_t*) ght_get(scopes[i], len, key);
 		if(result != NULL){
 			found = 1;
 			break;
