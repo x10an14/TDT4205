@@ -64,11 +64,11 @@ void strings_output (FILE *stream){//USE fprintf!!!! (Ikke bry deg om å alloker
 	// len += 12; //strlen(".globl main")+"\0"
 
 	//Usage of fprintf
-	fprintf(*stream, ".data\n.INTEGER: .string\"%%d\"\n"); //Print first two lines
+	fprintf(stream, ".data\n.INTEGER: .string\"%%d\"\n"); //Print first two lines
 	for (int i = 0; i < strings_index; i++){
-		fprintf(*stream, ".STRING%d: .string \"%s\"\n",i,strings[i]);//Every string line
+		fprintf(stream, ".STRING%d: .string \"%s\"\n",i,strings[i]);//Every string line
 	}
-	fprintf(*stream, ".globl main\n");//Last line. (Took the liberty of adding "\n"...)
+	fprintf(stream, ".globl main\n");//Last line. (Took the liberty of adding "\n"...)
 }
 
 void scope_add (void){
