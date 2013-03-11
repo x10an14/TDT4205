@@ -15,9 +15,9 @@ static symbol_t **values;
 static char **strings;
 
 // Helper variables for manageing the stacks/arrays
-static int32_t scopes_size = 16, scopes_index = -1;
-static int32_t values_size = 16, values_index = -1;
-static int32_t strings_size = 16, strings_index = -1;
+static int32_t scopes_size = 16, scopes_index = 0;
+static int32_t values_size = 16, values_index = 0;
+static int32_t strings_size = 16, strings_index = 0;
 
 
 void symtab_init (void){
