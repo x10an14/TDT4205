@@ -57,35 +57,91 @@ void bind_names ( node_t *root ){
     if (root != NULL){
         switch(root->type.index){
             case TEXT:
-            *((int*)root->data) = strings_add((char*)root->data);
+                int *ptr = (int*) malloc(sizeof(int));
+                *ptr = (int) strings_add((char*)root->data);
+                (int*) root->data = ptr;
             break;
 
-            /*Cases som må lage nye scope*/
             case FUNCTION_LIST:
-            /*code*/
+                scope_add();
+                for(int i = 0; i < root->n_children; i++){
+                    symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                    value->offset =0;
+                    symbol_insert((char*)root->children[i]->data,value);
+                }
+                for(int i = 0; i < root->n_children; i++){
+                    bind_names(root->children[i]);
+                }
+                scope_remove();
             break;
 
             //Sounds like function is a huge special case maybe?
             case FUNCTION:
-            /*Probably
-            plenty
-            of
-            code*/
-            scope_add();
+                /*Alltid tre barn: Navn, parameterlist/variablelist, og block
+                Ignore child[0] (name has already been handled in FUNCTION_LIST)*/
+                scope_add();
+                /*Iterate over all the parameters which are the children of child[1]*/
+                if(root->children[1] != NULL){
+                    node_t *current = root->children[1];
+                    for(int i = 0; i < current->n_children; i++){
+                        symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                        value->offset = 8+4(n_children-i-1);
+                        symbol_insert((char*)root->children[i]->data,value);
+                    }
+                }
+
+                /*Iterate over all the declarations and variable children of child[2]*/
+                if(root->children[2]->children[0] != NULL){
+                    current = root->children[2]->children[0];
+                    int cntr = 1;
+                    for(int i = 0; i < current->n_children; i++){
+                        /*Now we're iterating over all the declarations in block*/
+                        node_t *variableList = current->children[i]->children[0];
+                        for(int j = 0; j < variableList->n_children; i++){
+                            symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                            value->offset = -4*cntr;
+                            symbol_insert((char*) variableList->children[j]->data, value);
+                            cntr++;
+                        }
+                    }
+                }
+                bind_names(root->children[2]->children[1]);
+                scope_remove();
             break;
 
-            case: VARIABLE:
-            //How to differ between variable lookup and declaration/initialization?
+            case VARIABLE:
+                root->entry = symbol_get((char*)root->data);
+            break;
 
             /*Case som BARE skal lage ny scope*/
             case BLOCK:
-            scope_add();
+                scope_add();
+                /*Iterate over all the declarations and variable children of block*/
+                if(root->children[0] != NULL){
+                    current = root->children[0];
+                    int cntr = 1;
+                    for(int i = 0; i < current->n_children; i++){
+                        /*Now we're iterating over all the declarations in block*/
+                        node_t *variableList = current->children[i]->children[0];
+                        for(int j = 0; j < variableList->n_children; i++){
+                            symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                            value->offset = -4*cntr;
+                            symbol_insert((char*) variableList->children[j]->data, value);
+                            cntr++;
+                        }
+                    }
+                }
+                bind_names(root->children[1]);
+                scope_remove();
             break;
-        }
-        if(root->n_children > 0){
-            for (int i = 0; i < root->n_children; i++){
-                bind_names(root->children[i]);
+
+            default:
+            if(root->n_children > 0){
+               for (int i = 0; i < root->n_children; i++){
+                    bind_names(root->children[i]);
+                }
             }
+            break;
         }
     }
     return;

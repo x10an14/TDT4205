@@ -85,13 +85,12 @@ void symbol_insert (char *key, symbol_t *value){
 		values_size *= 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
 	}
-	symbol_t *ptr = (symbol_t*)malloc(sizeof(symbol_t));
-	*ptr = *value;
-	ptr->depth = scopes_index; //int depth initialized
-	ptr->stack_offset = -4;//WTF
-	//Må huske å sette int-verdiene! Og passe på at label blir satt riktig!
 	values_index++;
-	values[values_index] = ptr;
+	values[values_index] = value;
+	//Fix the rest of the symbol_t members:
+	value->depth = scopes_index;
+	value->label = (char*) malloc(sizeof(char));
+	*value->label = *key;
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB
 	fprintf ( stderr, "Inserting (%s,%d)\n", key, value->stack_offset );
@@ -108,9 +107,6 @@ symbol_t *symbol_get (char *key){
 			found = 1;
 			break;
 		}
-	}
-	if(found == 0){
-		exit(14);
 	}
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB

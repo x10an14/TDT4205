@@ -15,7 +15,6 @@ typedef struct {
     char *label;
 } symbol_t;
 
-
 void symtab_init ( void );
 void symtab_finalize ( void );
 
@@ -27,6 +26,5 @@ void scope_remove ( void );
 
 void symbol_insert ( char *key, symbol_t *value );
 symbol_t *symbol_get ( char *key );
-
 
 #endif
