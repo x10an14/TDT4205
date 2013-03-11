@@ -89,9 +89,8 @@ void symbol_insert (char *key, symbol_t *value){
 	values[values_index] = value;
 	//Fix the rest of the symbol_t members:
 	value->depth = scopes_index;
-	value->label = (char*) malloc(sizeof(char));
 	value->label = key;
-	ght_insert(scopes[scopes_index], value, strlen(key), key);
+	ght_insert(scopes[scopes_index], value, strlen(key), value->label);
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB
 	fprintf ( stderr, "Inserting (%s,%d)\n", key, value->stack_offset );
