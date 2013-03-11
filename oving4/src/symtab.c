@@ -15,9 +15,9 @@ static symbol_t **values;
 static char **strings;
 
 // Helper variables for manageing the stacks/arrays
-static int32_t scopes_size = 16, scopes_index = 0;
-static int32_t values_size = 16, values_index = 0;
-static int32_t strings_size = 16, strings_index = 0;
+static int32_t scopes_size = 16, scopes_index = -1;
+static int32_t values_size = 16, values_index = -1;
+static int32_t strings_size = 16, strings_index = -1;
 
 
 void symtab_init (void){
@@ -42,11 +42,11 @@ void symtab_finalize (void){
 }
 
 int32_t strings_add (char *str){
+	strings_index++;
 	if(strings_index == strings_size){
 		strings_size = 2*strings_size;
 		strings = realloc(strings, strings_size*sizeof(char*));
 	}
-	strings_index++;
 	strings[strings_index] = str;
 	return strings_index;
 }
@@ -62,6 +62,7 @@ void strings_output (FILE *stream){
 
 void scope_add (void){
 	//Whenever we call Function_List, Functions, or Blocks, add a new scope to stack
+	scopes_index++;
 	if (scopes_index == scopes_size){
 		scopes_size *= 2;
 		scopes = realloc(scopes, scopes_size*sizeof(hash_t*));
@@ -69,7 +70,6 @@ void scope_add (void){
 	//Add scope
 	hash_t *ptr = malloc(sizeof(hash_t));
 	ptr = ght_create(8);
-	scopes_index++;
 	scopes[scopes_index] = ptr;
 }
 
@@ -81,11 +81,11 @@ void scope_remove (void){
 }
 
 void symbol_insert (char *key, symbol_t *value){
+	values_index++;
 	if(values_index == values_size){
 		values_size *= 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
 	}
-	++values_index;
 	values[values_index] = value;
 	//Fix the rest of the symbol_t members:
 	value->depth = scopes_index;
