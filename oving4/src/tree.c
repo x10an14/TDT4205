@@ -60,7 +60,7 @@ void bind_names ( node_t *root ){
                 {scope_add();
                 for(int i = 0; i < root->n_children; i++){
                     symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                    value->offset =0;
+                    value->stack_offset =0;
                     symbol_insert((char*)root->children[i]->data,value);
                 }
                 for(int i = 0; i < root->n_children; i++){
@@ -79,7 +79,7 @@ void bind_names ( node_t *root ){
                     node_t *current = root->children[1];
                     for(int i = 0; i < current->n_children; i++){
                         symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                        value->offset = 8+4(n_children-i-1);
+                        value->stack_offset = 8+4(n_children-i-1);
                         symbol_insert((char*)root->children[i]->data,value);
                     }
                 }
@@ -93,7 +93,7 @@ void bind_names ( node_t *root ){
                         node_t *variableList = current->children[i]->children[0];
                         for(int j = 0; j < variableList->n_children; i++){
                             symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                            value->offset = -4*cntr;
+                            value->stack_offset = -4*cntr;
                             symbol_insert((char*) variableList->children[j]->data, value);
                             cntr++;
                         }
@@ -114,7 +114,7 @@ void bind_names ( node_t *root ){
                         node_t *variableList = current->children[i]->children[0];
                         for(int j = 0; j < variableList->n_children; i++){
                             symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                            value->offset = -4*cntr;
+                            value->stack_offset = -4*cntr;
                             symbol_insert((char*) variableList->children[j]->data, value);
                             cntr++;
                         }
