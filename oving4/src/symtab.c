@@ -86,10 +86,10 @@ void symbol_insert (char *key, symbol_t *value){
 		values_size *= 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
 	}
-	values[values_index] = value;
 	//Fix the rest of the symbol_t members:
 	value->depth = scopes_index;
 	value->label = key;
+	values[values_index] = value;
 	ght_insert(scopes[scopes_index], value, strlen(key), value->label);
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB
