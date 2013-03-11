@@ -107,7 +107,7 @@ void bind_names ( node_t *root ){
                 {scope_add();
                 /*Iterate over all the declarations and variable children of block*/
                 if(root->children[0] != NULL){
-                    current = root->children[0];
+                    node_t *current = root->children[0];
                     int cntr = 1;
                     for(int i = 0; i < current->n_children; i++){
                         /*Now we're iterating over all the declarations in block*/
@@ -131,7 +131,7 @@ void bind_names ( node_t *root ){
             case TEXT:
                 {int *ptr = (int*) malloc(sizeof(int));
                 *ptr = (int) strings_add((char*)root->data);
-                (int*) root->data = ptr;}
+                *((int*) root->data) = *ptr;}
             break;
 
             default:
