@@ -27,15 +27,14 @@ void symtab_init (void){
 }
 
 void symtab_finalize (void){
-	for (int i = scopes_index; i >= 0; i--){
-		ght_finalize(scopes[i]);
-		//Delete current scope and all it holds
-		//scope_remove()?
-		//ght_finalize(scopes[i]);?
-		//Delete corresponding values symbol I suppose?
+	for (int i = 0; i < scopes_index; i++){
+		scope_remove();
 	}
 	for (int i = values_index; i >= 0; i++){
-		/* code */
+		//Delete the member(s) of symbol_t struct, then the struct itself
+	}
+	for (int i = strings_index; i >= 0; i++){
+		free(strings[i]);
 	}
 	free(scopes);
 	free(values);
@@ -52,21 +51,7 @@ int32_t strings_add (char *str){
 	return strings_index;
 }
 
-void strings_output (FILE *stream){//USE fprintf!!!! (Ikke bry deg om å allokere plass sa studass og undass...)
-	int len[strings_index+3];
-	len[0] = 7; //strlen(".data\n")
-	len[1] = 27; //strlen(".INTEGER: .string \"%%d\"\n")
-	int tot_len = 34;
-	for (int i = 0; i < strings_index; i++){
-		int cur = 23 + strlen((char*)i) + strlen(strings[i]) -2; //-2 to ignore "\0"
-		len[i+2] = cur;
-		tot_len += cur;
-		//len += 7 + 12 + 4; //strlen(".STRING") + strlen(": .string \"") + strlen("\"\n")
-	}
-	len[strings_index+2] = 12;
-	tot_len += 12;
-	// len += 12; //strlen(".globl main")+"\0"
-
+void strings_output (FILE *stream){
 	//Usage of fprintf
 	fprintf(stream, ".data\n.INTEGER: .string\"%%d\"\n"); //Print first two lines
 	for (int i = 0; i < strings_index; i++){
@@ -102,9 +87,11 @@ void symbol_insert (char *key, symbol_t *value){
 	}
 	symbol_t *ptr = (symbol_t*)malloc(sizeof(symbol_t));
 	*ptr = *value;
+	ptr->depth = scopes_index; //int depth initialized
+	ptr->stack_offset = -4;//WTF
+	//Må huske å sette int-verdiene! Og passe på at label blir satt riktig!
 	values_index++;
 	values[values_index] = ptr;
-	// ptr->...???
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB
 	fprintf ( stderr, "Inserting (%s,%d)\n", key, value->stack_offset );
