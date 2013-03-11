@@ -61,7 +61,7 @@ void bind_names ( node_t *root ){
                 for(int i = 0; i < root->n_children; i++){
                     symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
                     value->stack_offset = 0;
-                    char* key = (char*)root->children[i]->data;
+                    char* key = root->children[i]->data;
                     symbol_insert(key,value);
                 }
                 for(int i = 0; i < root->n_children; i++){
