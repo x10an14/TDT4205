@@ -70,67 +70,67 @@ void bind_names ( node_t *root ){
             break;
 
             case FUNCTION:
-                // {/*Alltid tre barn: Navn, parameterlist/variablelist, og block
-                // Ignore child[0] (name has already been handled in FUNCTION_LIST)*/
-                // scope_add();
-                // /*Iterate over all the parameters which are the children of child[1]*/
-                // if(root->children[1] != NULL){
-                //     node_t *current = root->children[1];
-                //     for(int i = 0; i < current->n_children; i++){
-                //         symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                //         value->stack_offset = 8+4*(current->n_children-i-1);
-                //         symbol_insert((char*)root->children[i]->data,value);
-                //     }
-                // }
+                {/*Alltid tre barn: Navn, parameterlist/variablelist, og block
+                Ignore child[0] (name has already been handled in FUNCTION_LIST)*/
+                scope_add();
+                /*Iterate over all the parameters which are the children of child[1]*/
+                if(root->children[1] != NULL){
+                    node_t *current = root->children[1];
+                    for(int i = 0; i < current->n_children; i++){
+                        symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                        value->stack_offset = 8+4*(current->n_children-i-1);
+                        symbol_insert((char*)root->children[i]->data,value);
+                    }
+                }
 
-                // /*Iterate over all the declarations and variable children of child[2]*/
-                // if(root->children[2]->children[0] != NULL){
-                //     node_t *current = root->children[2]->children[0];
-                //     int cntr = 1;
-                //     for(int i = 0; i < current->n_children; i++){
-                //         /*Now we're iterating over all the declarations in block*/
-                //         node_t *variableList = current->children[i]->children[0];
-                //         for(int j = 0; j < variableList->n_children; i++){
-                //             symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                //             value->stack_offset = -4*cntr;
-                //             symbol_insert((char*) variableList->children[j]->data, value);
-                //             cntr++;
-                //         }
-                //     }
-                // }
-                // bind_names(root->children[2]->children[1]);
-                // scope_remove();}
+                /*Iterate over all the declarations and variable children of child[2]*/
+                if(root->children[2]->children[0] != NULL){
+                    node_t *current = root->children[2]->children[0];
+                    int cntr = 1;
+                    for(int i = 0; i < current->n_children; i++){
+                        /*Now we're iterating over all the declarations in block*/
+                        node_t *variableList = current->children[i]->children[0];
+                        for(int j = 0; j < variableList->n_children; i++){
+                            symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                            value->stack_offset = -4*cntr;
+                            symbol_insert((char*) variableList->children[j]->data, value);
+                            cntr++;
+                        }
+                    }
+                }
+                bind_names(root->children[2]->children[1]);
+                scope_remove();}
             break;
 
             case BLOCK:
-                // {scope_add();
-                // /*Iterate over all the declarations and variable children of block*/
-                // if(root->children[0] != NULL){
-                //     node_t *current = root->children[0];
-                //     int cntr = 1;
-                //     for(int i = 0; i < current->n_children; i++){
-                //         /*Now we're iterating over all the declarations in block*/
-                //         node_t *variableList = current->children[i]->children[0];
-                //         for(int j = 0; j < variableList->n_children; i++){
-                //             symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                //             value->stack_offset = -4*cntr;
-                //             symbol_insert((char*) variableList->children[j]->data, value);
-                //             cntr++;
-                //         }
-                //     }
-                // }
-                // bind_names(root->children[1]);
-                // scope_remove();}
+                {scope_add();
+                /*Iterate over all the declarations and variable children of block*/
+                if(root->children[0] != NULL){
+                    node_t *current = root->children[0];
+                    int cntr = 1;
+                    for(int i = 0; i < current->n_children; i++){
+                        /*Now we're iterating over all the declarations in block*/
+                        node_t *variableList = current->children[i]->children[0];
+                        for(int j = 0; j < variableList->n_children; i++){
+                            symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                            value->stack_offset = -4*cntr;
+                            symbol_insert((char*) variableList->children[j]->data, value);
+                            cntr++;
+                        }
+                    }
+                }
+                bind_names(root->children[1]);
+                scope_remove();}
             break;
 
             case VARIABLE:
-                // {root->entry = symbol_get((char*)root->data);}
+                {root->entry = symbol_get((char*)root->data);}
             break;
 
             case TEXT:
-                // {int *ptr = (int*) malloc(sizeof(int));
-                // *ptr = (int) strings_add((char*)root->data);
-                // *((int*) root->data) = *ptr;}
+                {int *ptr = (int*) malloc(sizeof(int));
+                *ptr = (int) strings_add((char*)root->data);
+                *((int*) root->data) = *ptr;}
             break;
 
             default:
