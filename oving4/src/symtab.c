@@ -85,7 +85,7 @@ void symbol_insert (char *key, symbol_t *value){
 		values_size *= 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
 	}
-	values_index++;
+	++values_index;
 	values[values_index] = value;
 	//Fix the rest of the symbol_t members:
 	value->depth = scopes_index;
