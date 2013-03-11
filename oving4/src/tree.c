@@ -56,14 +56,8 @@ void destroy_subtree ( node_t *discard ){
 void bind_names ( node_t *root ){
     if (root != NULL){
         switch(root->type.index){
-            case TEXT:
-                int *ptr = (int*) malloc(sizeof(int));
-                *ptr = (int) strings_add((char*)root->data);
-                (int*) root->data = ptr;
-            break;
-
             case FUNCTION_LIST:
-                scope_add();
+                {scope_add();
                 for(int i = 0; i < root->n_children; i++){
                     symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
                     value->offset =0;
@@ -72,12 +66,12 @@ void bind_names ( node_t *root ){
                 for(int i = 0; i < root->n_children; i++){
                     bind_names(root->children[i]);
                 }
-                scope_remove();
+                scope_remove();}
             break;
 
             //Sounds like function is a huge special case maybe?
             case FUNCTION:
-                /*Alltid tre barn: Navn, parameterlist/variablelist, og block
+                {/*Alltid tre barn: Navn, parameterlist/variablelist, og block
                 Ignore child[0] (name has already been handled in FUNCTION_LIST)*/
                 scope_add();
                 /*Iterate over all the parameters which are the children of child[1]*/
@@ -106,16 +100,11 @@ void bind_names ( node_t *root ){
                     }
                 }
                 bind_names(root->children[2]->children[1]);
-                scope_remove();
+                scope_remove();}
             break;
 
-            case VARIABLE:
-                root->entry = symbol_get((char*)root->data);
-            break;
-
-            /*Case som BARE skal lage ny scope*/
             case BLOCK:
-                scope_add();
+                {scope_add();
                 /*Iterate over all the declarations and variable children of block*/
                 if(root->children[0] != NULL){
                     current = root->children[0];
@@ -132,15 +121,25 @@ void bind_names ( node_t *root ){
                     }
                 }
                 bind_names(root->children[1]);
-                scope_remove();
+                scope_remove();}
+            break;
+
+            case VARIABLE:
+                {root->entry = symbol_get((char*)root->data);}
+            break;
+
+            case TEXT:
+                {int *ptr = (int*) malloc(sizeof(int));
+                *ptr = (int) strings_add((char*)root->data);
+                (int*) root->data = ptr;}
             break;
 
             default:
-            if(root->n_children > 0){
-               for (int i = 0; i < root->n_children; i++){
-                    bind_names(root->children[i]);
-                }
-            }
+                {if(root->n_children > 0){
+                   for (int i = 0; i < root->n_children; i++){
+                        bind_names(root->children[i]);
+                    }
+                }}
             break;
         }
     }
