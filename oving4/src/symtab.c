@@ -23,7 +23,7 @@ static int32_t strings_size = 16, strings_index = -1;
 void symtab_init (void){
 	scopes = (hash_t**)calloc(scopes_size, sizeof(hash_t*));
 	values = (symbol_t**)calloc(values_size, sizeof(symbol_t*));
-	strings = (char**)calloc(strings_size, ssizeof(char*));
+	strings = (char**)calloc(strings_size, sizeof(char*));
 }
 
 void symtab_finalize (void){
