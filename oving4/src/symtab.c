@@ -92,7 +92,7 @@ void symbol_insert (char *key, symbol_t *value){
 	}
 	//Fix the rest of the symbol_t members:
 	value->depth = scopes_index;
-	value->label = key;
+	value->label = STRDUP(key);
 	values[values_index] = value;
 	ght_insert(scopes[scopes_index], value, strlen(key), value->label);
 	// Keep this for debugging/testing
