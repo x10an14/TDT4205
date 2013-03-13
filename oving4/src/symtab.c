@@ -109,7 +109,7 @@ symbol_t *symbol_get (char *key){
 	printf("\nTrying to get symbol with following values: \nkey: %s\n", key);
 	symbol_t* result = NULL;
 	int len = strlen(key);
-	printf("key size: %d\n", len);
+	printf("key size: %d\nAmount of scopes: %d\n", len, scopes_index+1);
 	for (int i = scopes_index; i >= 0; i++){
 		printf("Checking scope #: %d\n", i);
 		result = (symbol_t*) ght_get(scopes[i], len, key);
