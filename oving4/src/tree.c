@@ -98,12 +98,12 @@ void bind_names ( node_t *root ){
                         Each declaration child has only one child, a variablelist*/
                         node_t *variableList = declarationList->children[i]->children[0];
                         /*Each variableList has n_children amount of variable children*/
-                        for (int j = 0; j < variablelist->n_children; j++){
-                            node_t *variable = variablelist->children[j];
+                        for (int j = 0; j < variableList->n_children; j++){
+                            node_t *variable = variableList->children[j];
                             symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
                             value->stack_offset = -4*cntr;
                             symbol_insert(variable->data, value);
-                            cntr++;s
+                            cntr++;
                         }
                     }
                 }
