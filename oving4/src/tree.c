@@ -79,26 +79,26 @@ void bind_names ( node_t *root ){
                     for(int i = 0; i < current->n_children; i++){
                         symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
                         value->stack_offset = 8+4*(current->n_children-i-1);
-                        symbol_insert((char*)root->children[i]->data,value);
+                        symbol_insert((char*)current->children[i]->data,value);
                     }
                 }
 
-                /*Iterate over all the declarations and variable children of child[2]*/
-                if(root->children[2]->children[0] != NULL){
-                    node_t *current = root->children[2]->children[0];
-                    int cntr = 1;
-                    for(int i = 0; i < current->n_children; i++){
-                        /*Now we're iterating over all the declarations in block*/
-                        node_t *variableList = current->children[i]->children[0];
-                        for(int j = 0; j < variableList->n_children; i++){
-                            symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                            value->stack_offset = -4*cntr;
-                            symbol_insert((char*) variableList->children[j]->data, value);
-                            cntr++;
-                        }
-                    }
-                }
-                bind_names(root->children[2]->children[1]);
+                // /*Iterate over all the declarations and variable children of child[2]*/
+                // if(root->children[2]->children[0] != NULL){
+                //     node_t *current = root->children[2]->children[0];
+                //     int cntr = 1;
+                //     for(int i = 0; i < current->n_children; i++){
+                //         /*Now we're iterating over all the declarations in block*/
+                //         node_t *variableList = current->children[i]->children[0];
+                //         for(int j = 0; j < variableList->n_children; i++){
+                //             symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                //             value->stack_offset = -4*cntr;
+                //             symbol_insert((char*) variableList->children[j]->data, value);
+                //             cntr++;
+                //         }
+                //     }
+                // }
+                bind_names(root->children[2]);
                 scope_remove();}
             break;
 
