@@ -98,8 +98,8 @@ void bind_names ( node_t *root ){
                         printf("Declaration children[%d] type: %s\nHas %d children\n", i, declaration->children[i]->type.text, declaration->n_children);
                         for (int j = 0; j < declaration->n_children; j++){
                             printf("\tChild[%d] of above is of type: %s\n", j, declaration->children[j]->type.text);
-                            printf("Data of this child: %s\n", declaration->children[j]->data);
                             printf("Amount of children for this child: %d\n", declaration->children[j]->n_children);
+                            printf("\t\tType of this grandchild: %s\n", declaration->children[j]->children[0]->type.text);
                         }
                         // node_t *variableList = declaration->children[i]->children[0];
                         // for(int j = 0; j < variableList->n_children; i++){
