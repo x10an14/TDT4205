@@ -91,24 +91,25 @@ void bind_names ( node_t *root ){
                 /*children[0] will be a declaration list (if it exists). It will (after simplify tree) only have zero or more children of which all will be variables.*/
                 /*Iterate over all the declarations and variable children of block*/
                 if(root->children[0] != NULL){
-                    node_t *declaration = root->children[0];
+                    node_t *declarationList = root->children[0];
                     int cntr = 1;
-                    for(int i = 0; i < declaration->n_children; i++){
-                        /*Now we're iterating over all the variable children of the declaration node in this block*/
-                        printf("Declaration children[%d] type: %s\nHas %d children\n", i, declaration->children[i]->type.text, declaration->n_children);
-                        for (int j = 0; j < declaration->n_children; j++){
-                            printf("\tChild[%d] of above is of type: %s\n", j, declaration->children[j]->type.text);
-                            printf("Amount of children for this child: %d\n", declaration->children[j]->n_children);
-                            printf("\t\tType of this grandchild: %s\n", declaration->children[j]->children[0]->type.text);
+                    for(int i = 0; i < declarationList->n_children; i++){
+                        /*Now we're iterating over all the declaration children of the declaration node in this block
+                        Each declaration child has only one child, a variablelist*/
+                        node_t *variableList = declarationList->children[i]->children[0];
+                        /*Each variableList has n_children amount of variable children*/
+                        for (int j = 0; j < variablelist->n_children; j++){
+                            node_t *variable = variablelist->children[j];
+                            symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
+                            value->stack_offset = -4*cntr;
+                            symbol_insert(variable->data, value);
+                            cntr++;s
                         }
-                        // node_t *variableList = declaration->children[i]->children[0];
-                        // for(int j = 0; j < variableList->n_children; i++){
-                        //     symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
-                        //     value->stack_offset = -4*cntr;
-                        //     symbol_insert((char*) variableList->children[j]->data, value);
-                        //     cntr++;
-                        // }
                     }
+                }
+
+                if (root->children[1] != NULL){
+                    /* code */
                 }
                 bind_names(root->children[1]);
                 scope_remove();
