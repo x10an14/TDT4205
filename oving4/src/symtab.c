@@ -1,4 +1,5 @@
 #include "symtab.h"
+#include "tree.h"
 
 // static does not mean the same as in Java.
 // For global variables, it means they are only visible in this file.
@@ -31,12 +32,12 @@ void symtab_finalize (void){
 		scope_remove();
 	}
 	scopes_index = -1;
-	for (int i = values_index; i >= 0; i++){
+	for (int i = values_index; i >= 0; i--){
 		// free(values[i]->label);
 		free(values[i]);
 	}
 	values_index = -1;
-	for (int i = strings_index; i >= 0; i++){
+	for (int i = strings_index; i >= 0; i--){
 		free(strings[i]);
 	}
 	strings_index = -1;
@@ -72,9 +73,7 @@ void scope_add (void){
 		scopes = realloc(scopes, scopes_size*sizeof(hash_t*));
 	}
 	//Add scope
-	hash_t *ptr = malloc(sizeof(hash_t));
-	ptr = ght_create(8);
-	scopes[scopes_index] = ptr;
+	scopes[scopes_index] = ght_create(8);
 }
 
 void scope_remove (void){
