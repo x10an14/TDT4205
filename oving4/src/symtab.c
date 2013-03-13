@@ -83,11 +83,7 @@ void scope_remove (void){
 	}
 }
 
-void symbol_insert (char *key, symbol_t *value){
-	// printf("\nTrying to insert symbol with following values:\nkey: %s\n", key);
-	// printf("values_index: %d\n", values_index);
-	// printf("depth: %d\n", scopes_index);
-	values_index++;
+void symbol_insert (char *key, symbol_t *value){values_index++;
 	if(values_index == values_size){
 		values_size *= 2;
 		values = realloc(values, values_size*sizeof(symbol_t*));
@@ -95,9 +91,6 @@ void symbol_insert (char *key, symbol_t *value){
 	//Fix the rest of the symbol_t members:
 	value->depth = scopes_index;
 	value->label = STRDUP(key);
-	// printf("label: %s\n", value->label);
-	// printf("label size: %d\n", strlen(key));
-	values[values_index] = value;
 	ght_insert(scopes[scopes_index], value, strlen(key), value->label);
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB
@@ -106,18 +99,13 @@ void symbol_insert (char *key, symbol_t *value){
 }
 
 symbol_t *symbol_get (char *key){
-	// printf("\nTrying to get symbol with following values: \nkey: %s\n", key);
 	symbol_t* result = NULL;
 	int len = strlen(key);
-	// printf("key size: %d\nAmount of scopes: %d\n", len, scopes_index+1);
 	for (int i = scopes_index; i >= 0; i--){
-		// printf("Checking scope #: %d\n", i);
 		result = (symbol_t*) ght_get(scopes[i], len, key);
 		if(result != NULL){
-			// printf("Found value in this scope!");
 			break;
 		}
-		// printf("Nothing found in this scope...\n");
 	}
 	// Keep this for debugging/testing
 	#ifdef DUMP_SYMTAB

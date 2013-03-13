@@ -107,10 +107,6 @@ void bind_names ( node_t *root ){
                         }
                     }
                 }
-
-                if (root->children[1] != NULL){
-                    /* code */
-                }
                 bind_names(root->children[1]);
                 scope_remove();
             break;
