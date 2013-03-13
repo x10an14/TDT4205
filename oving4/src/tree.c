@@ -127,11 +127,11 @@ void bind_names ( node_t *root ){
             //     {root->entry = symbol_get((char*)root->data);}
             // break;
 
-            // case TEXT:
-            //     {int *ptr = (int*) malloc(sizeof(int));
-            //     *ptr = (int) strings_add((char*)root->data);
-            //     *((int*) root->data) = *ptr;}
-            // break;
+            case TEXT:
+                {int *ptr = (int*) malloc(sizeof(int));
+                *ptr = (int) strings_add((char*)root->data);
+                *((int*) root->data) = *ptr;}
+            break;
 
             default:
                 {if(root->n_children > 0){
