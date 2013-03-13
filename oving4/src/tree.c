@@ -123,9 +123,9 @@ void bind_names ( node_t *root ){
             //     scope_remove();}
             // break;
 
-            // case VARIABLE:
-            //     {root->entry = symbol_get((char*)root->data);}
-            // break;
+            case VARIABLE:
+                {root->entry = symbol_get((char*)root->data);}
+            break;
 
             case TEXT:
                 {int *ptr = (int*) malloc(sizeof(int));
