@@ -130,15 +130,15 @@ void bind_names ( node_t *root ){
             case TEXT:
                 {int *ptr = (int*) malloc(sizeof(int));
                 *ptr = (int) strings_add((char*)root->data);
-                *((int*) root->data) = *ptr;}
+                root->data = ptr;}
             break;
 
             default:
-                {if(root->n_children > 0){
+                if(root->n_children > 0){
                    for (int i = 0; i < root->n_children; i++){
                         bind_names(root->children[i]);
                     }
-                }}
+                }
             break;
         }
     }
