@@ -96,7 +96,7 @@ void bind_names ( node_t *root ){
                     for(int i = 0; i < declaration->n_children; i++){
                         /*Now we're iterating over all the variable children of the declaration node in this block*/
                         printf("Declaration children[%d] type: %s\nHas %d children\n", i, declaration->children[i]->type.text, declaration->n_children);
-                        for (int i = 0; i < declaration->n_children; i++){
+                        for (int j = 0; j < declaration->n_children; j++){
                             printf("\tChild[%d] of above is of type: %s\n", j, declaration->children[j]->type.text);
                         }
                         // node_t *variableList = declaration->children[i]->children[0];
