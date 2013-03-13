@@ -31,9 +31,10 @@ void symtab_finalize (void){
 	for (int i = 0; i < scopes_index; i++){
 		scope_remove();
 	}
-	scopes_index = -1;
+	scope_remove();
+	// scopes_index = -1;
 	for (int i = values_index; i >= 0; i--){
-		// free(values[i]->label);
+		free(values[i]->label);
 		free(values[i]);
 	}
 	values_index = -1;
