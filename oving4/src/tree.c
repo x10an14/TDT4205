@@ -57,7 +57,7 @@ void bind_names ( node_t *root ){
     if (root != NULL){
         switch(root->type.index){
             case FUNCTION_LIST:
-                scope_add();
+                {scope_add();
                 for(int i = 0; i < root->n_children; i++){
                     symbol_t *value = (symbol_t*) malloc(sizeof(symbol_t));
                     value->stack_offset = 0;
@@ -66,7 +66,7 @@ void bind_names ( node_t *root ){
                 for(int i = 0; i < root->n_children; i++){
                     bind_names(root->children[i]);
                 }
-                scope_remove();
+                scope_remove();}
             break;
 
             // case FUNCTION:
