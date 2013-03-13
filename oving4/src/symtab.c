@@ -32,7 +32,7 @@ void symtab_finalize (void){
 	}
 	scopes_index = -1;
 	for (int i = values_index; i >= 0; i++){
-		free(values[i]->label);
+		// free(values[i]->label);
 		free(values[i]);
 	}
 	values_index = -1;
