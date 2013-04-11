@@ -88,7 +88,7 @@ static void instructions_finalize(void);
 
 void generate(FILE *stream, node_t *root){
     int elegant_solution;
-    if ( root == NULL )
+    if(root == NULL )
         return;
 
     switch ( root->type.index ){
@@ -204,7 +204,7 @@ void generate(FILE *stream, node_t *root){
 
     static void
 instruction_append(instruction_t *next){
-    if ( start != NULL ){
+    if(start != NULL ){
         last->next = next;
         last = next;
     }
@@ -229,7 +229,7 @@ instructions_print(FILE *stream){
     while ( this != NULL ){
         switch(this->opcode){
             case PUSH:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tpushl\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tpushl\t%d(%s)\n",
@@ -237,7 +237,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case POP:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tpopl\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tpopl\t%d(%s)\n",
@@ -245,50 +245,50 @@ instructions_print(FILE *stream){
                             );
                 break;
             case MOVE:
-                if ( this->offsets[0] == 0 && this->offsets[1] == 0 )
+                if(this->offsets[0] == 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\tmovl\t%s,%s\n",
                             this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] != 0 && this->offsets[1] == 0 )
+                else if(this->offsets[0] != 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\tmovl\t%d(%s),%s\n",
                             this->offsets[0], this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] == 0 && this->offsets[1] != 0 )
+                else if(this->offsets[0] == 0 && this->offsets[1] != 0 )
                     fprintf ( stream, "\tmovl\t%s,%d(%s)\n",
                             this->operands[0], this->offsets[1], this->operands[1]
                             );
                 break;
 
             case ADD:
-                if ( this->offsets[0] == 0 && this->offsets[1] == 0 )
+                if(this->offsets[0] == 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\taddl\t%s,%s\n",
                             this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] != 0 && this->offsets[1] == 0 )
+                else if(this->offsets[0] != 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\taddl\t%d(%s),%s\n",
                             this->offsets[0], this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] == 0 && this->offsets[1] != 0 )
+                else if(this->offsets[0] == 0 && this->offsets[1] != 0 )
                     fprintf ( stream, "\taddl\t%s,%d(%s)\n",
                             this->operands[0], this->offsets[1], this->operands[1]
                             );
                 break;
             case SUB:
-                if ( this->offsets[0] == 0 && this->offsets[1] == 0 )
+                if(this->offsets[0] == 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\tsubl\t%s,%s\n",
                             this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] != 0 && this->offsets[1] == 0 )
+                else if(this->offsets[0] != 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\tsubl\t%d(%s),%s\n",
                             this->offsets[0], this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] == 0 && this->offsets[1] != 0 )
+                else if(this->offsets[0] == 0 && this->offsets[1] != 0 )
                     fprintf ( stream, "\tsubl\t%s,%d(%s)\n",
                             this->operands[0], this->offsets[1], this->operands[1]
                             );
                 break;
             case MUL:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\timull\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\timull\t%d(%s)\n",
@@ -296,7 +296,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case DIV:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tidivl\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tidivl\t%d(%s)\n",
@@ -304,7 +304,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case NEG:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tnegl\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tnegl\t%d(%s)\n",
@@ -325,7 +325,7 @@ instructions_print(FILE *stream){
                 fprintf ( stream, "\tcwde\n" );
                 break;
             case CMPZERO:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tcmpl\t$0,%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tcmpl\t$0,%d(%s)\n",
@@ -333,21 +333,21 @@ instructions_print(FILE *stream){
                             );
                 break;
             case CMP:
-                if ( this->offsets[0] == 0 && this->offsets[1] == 0 )
+                if(this->offsets[0] == 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\tcmpl\t%s,%s\n",
                             this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] != 0 && this->offsets[1] == 0 )
+                else if(this->offsets[0] != 0 && this->offsets[1] == 0 )
                     fprintf ( stream, "\tcmpl\t%d(%s),%s\n",
                             this->offsets[0], this->operands[0], this->operands[1]
                             );
-                else if ( this->offsets[0] == 0 && this->offsets[1] != 0 )
+                else if(this->offsets[0] == 0 && this->offsets[1] != 0 )
                     fprintf ( stream, "\tcmpl\t%s,%d(%s)\n",
                             this->operands[0], this->offsets[1], this->operands[1]
                             );
                 break;
             case SETL:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tsetl\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tsetl\t%d(%s)\n",
@@ -355,7 +355,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case SETG:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tsetg\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tsetg\t%d(%s)\n",
@@ -363,7 +363,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case SETLE:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tsetle\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tsetle\t%d(%s)\n",
@@ -371,7 +371,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case SETGE:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tsetge\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tsetge\t%d(%s)\n",
@@ -379,7 +379,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case SETE:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tsete\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tsete\t%d(%s)\n",
@@ -387,7 +387,7 @@ instructions_print(FILE *stream){
                             );
                 break;
             case SETNE:
-                if ( this->offsets[0] == 0 )
+                if(this->offsets[0] == 0 )
                     fprintf ( stream, "\tsetne\t%s\n", this->operands[0] );
                 else
                     fprintf ( stream, "\tsetne\t%d(%s)\n",
@@ -397,7 +397,7 @@ instructions_print(FILE *stream){
 
             case CALL: case SYSCALL:
                 fprintf ( stream, "\tcall\t" );
-                if ( this->opcode == CALL )
+                if(this->opcode == CALL )
                     fputc ( '_', stream );
                 fprintf ( stream, "%s\n", this->operands[0] );
                 break;
@@ -437,12 +437,11 @@ instructions_print(FILE *stream){
 }
 
 
-    static void
-instructions_finalize(void){
+static void instructions_finalize(void){
     instruction_t *this = start, *next;
     while ( this != NULL ){
         next = this->next;
-        if ( this->operands[0] != eax && this->operands[0] != ebx &&
+        if(this->operands[0] != eax && this->operands[0] != ebx &&
                 this->operands[0] != ecx && this->operands[0] != edx &&
                 this->operands[0] != ebp && this->operands[0] != esp &&
                 this->operands[0] != esi && this->operands[0] != edi &&
