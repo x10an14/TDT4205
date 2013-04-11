@@ -33,13 +33,13 @@ static instruction_t *start = NULL, *last = NULL;
 /*
  * Track the scope depth when traversing the tree - init. value may depend on
  * how the symtab was built
- */ 
+ */
 static int32_t depth = 1;
 
-/* Prototypes for auxiliaries (implemented at the end of this file) */
+/* Prototypes for auxiliaries(implemented at the end of this file) */
 static void instruction_add ( opcode_t op, char *arg1, char *arg2, int32_t off1, int32_t off2 );
-static void instructions_print ( FILE *stream );
-static void instructions_finalize ( void );
+static void instructions_print(FILE *stream);
+static void instructions_finalize(void);
 
 
 /*
@@ -75,28 +75,26 @@ static void instructions_finalize ( void );
     instruction_add ( DECL,         esi, NULL, 0, 0 );                  \
     instruction_add ( JUMPNONZ,     STRDUP("pusharg"), NULL, 0, 0 );    \
     instruction_add ( STRING,       STRDUP("noargs:"), NULL, 0, 0 );    \
-} while ( false )
+} while(false)
 
 #define TEXT_TAIL() do {\
     instruction_add ( LEAVE, NULL, NULL, 0, 0 );            \
     instruction_add ( PUSH, eax, NULL, 0, 0 );              \
     instruction_add ( SYSCALL, STRDUP("exit"), NULL, 0, 0 );\
-} while ( false )
+} while(false)
 
 
 
 
-void generate ( FILE *stream, node_t *root )
-{
+void generate(FILE *stream, node_t *root){
     int elegant_solution;
     if ( root == NULL )
         return;
 
-    switch ( root->type.index )
-    {
+    switch ( root->type.index ){
         case PROGRAM:
             /* Output the data segment */
-            strings_output ( stream );
+            strings_output(stream);
             instruction_add ( STRING, STRDUP( ".text" ), NULL, 0, 0 );
 
             RECUR();
@@ -106,7 +104,7 @@ void generate ( FILE *stream, node_t *root )
 
             TEXT_TAIL();
 
-            instructions_print ( stream );
+            instructions_print(stream);
             instructions_finalize ();
             break;
 
@@ -145,7 +143,7 @@ void generate ( FILE *stream, node_t *root )
         case PRINT_ITEM:
             /*
              * Items in print lists:
-             * Determine what kind of value (string literal or expression)
+             * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
 
@@ -163,7 +161,7 @@ void generate ( FILE *stream, node_t *root )
 
         case VARIABLE:
             /*
-             * Occurrences of variables: (declarations have their own case)
+             * Occurrences of variables:(declarations have their own case)
              * - Find the variable's stack offset
              * - If var is not local, unwind the stack to its correct base
              */
@@ -181,7 +179,7 @@ void generate ( FILE *stream, node_t *root )
             /*
              * Assignments:
              * Right hand side is an expression, find left hand side on stack
-             * (unwinding if necessary)
+             *(unwinding if necessary)
              */
 
             break;
@@ -205,10 +203,8 @@ void generate ( FILE *stream, node_t *root )
 
 
     static void
-instruction_append ( instruction_t *next )
-{
-    if ( start != NULL )
-    {
+instruction_append(instruction_t *next){
+    if ( start != NULL ){
         last->next = next;
         last = next;
     }
@@ -219,23 +215,19 @@ instruction_append ( instruction_t *next )
 
     static void
 instruction_add (
-        opcode_t op, char *arg1, char *arg2, int32_t off1, int32_t off2 
-        )
-{
-    instruction_t *i = (instruction_t *) malloc ( sizeof(instruction_t) );
-    *i = (instruction_t) { op, {arg1, arg2}, {off1, off2}, NULL };
-    instruction_append ( i );
+        opcode_t op, char *arg1, char *arg2, int32_t off1, int32_t off2
+        ){
+    instruction_t *i =(instruction_t *) malloc ( sizeof(instruction_t) );
+    *i =(instruction_t) { op, {arg1, arg2}, {off1, off2}, NULL };
+    instruction_append(i);
 }
 
 
     static void
-instructions_print ( FILE *stream )
-{
+instructions_print(FILE *stream){
     instruction_t *this = start;
-    while ( this != NULL )
-    {
-        switch ( this->opcode )
-        {
+    while ( this != NULL ){
+        switch(this->opcode){
             case PUSH:
                 if ( this->offsets[0] == 0 )
                     fprintf ( stream, "\tpushl\t%s\n", this->operands[0] );
@@ -409,7 +401,7 @@ instructions_print ( FILE *stream )
                     fputc ( '_', stream );
                 fprintf ( stream, "%s\n", this->operands[0] );
                 break;
-            case LABEL: 
+            case LABEL:
                 fprintf ( stream, "_%s:\n", this->operands[0] );
                 break;
 
@@ -446,20 +438,18 @@ instructions_print ( FILE *stream )
 
 
     static void
-instructions_finalize ( void )
-{
+instructions_finalize(void){
     instruction_t *this = start, *next;
-    while ( this != NULL )
-    {
+    while ( this != NULL ){
         next = this->next;
         if ( this->operands[0] != eax && this->operands[0] != ebx &&
                 this->operands[0] != ecx && this->operands[0] != edx &&
                 this->operands[0] != ebp && this->operands[0] != esp &&
                 this->operands[0] != esi && this->operands[0] != edi &&
-                this->operands[0] != al && this->operands[0] != bl 
+                this->operands[0] != al && this->operands[0] != bl
            )
             free ( this->operands[0] );
-        free ( this );
+        free(this);
         this = next;
     }
 }
