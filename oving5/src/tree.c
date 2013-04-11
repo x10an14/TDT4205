@@ -88,7 +88,7 @@ node_t * simplify_tree(node_t *root){
              * that at the beginning of the function. This has a somewhat
              * nasty side-effect in the grammar, however, as it gets a
              * different structure from the other lists when it DOES exist
-             *(such as here). Other lists have a single-element list with
+             * (such as here). Other lists have a single-element list with
              * the last list item at the bottom of the tree, whereas
              * declaration lists have a 2-element list with NULL and the
              * last item. The code that follows molds the bottom of a
