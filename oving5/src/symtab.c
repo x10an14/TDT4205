@@ -9,48 +9,40 @@ static int32_t values_size = 16, values_index = -1;
 static int32_t strings_size = 16, strings_index = -1;
 
 
-void
-symtab_init ( void )
-{
+void symtab_init(void){
     /* String table */
     strings = malloc ( strings_size * sizeof(char *) );
 
     /* Stack of scopes */
-    scopes = (hash_t **) calloc ( scopes_size, sizeof (hash_t *) );
-    values = (symbol_t **) calloc ( values_size, sizeof (symbol_t *) );
+    scopes =(hash_t **) calloc ( scopes_size, sizeof(hash_t *) );
+    values =(symbol_t **) calloc ( values_size, sizeof(symbol_t *) );
     scope_add ();
 }
 
 
-void
-symtab_finalize ( void )
-{
+void symtab_finalize(void){
     /* String table */
     for ( int32_t i=strings_index; i>=0; i-- )
         free ( strings[i] );
-    free ( strings );
+    free(strings);
 
     /* Stack of scopes */
     while ( scopes_index > -1 )
         scope_remove ();
-    while ( values_index >= 0 )
-    {
+    while ( values_index >= 0 ){
         free ( values[values_index]->label );
         free ( values[values_index] );
         values_index -= 1;
     }
-    free ( scopes );
-    free ( values );
+    free(scopes);
+    free(values);
 }
 
 
-int32_t
-strings_add ( char *str )
-{
+int32_t strings_add(char *str){
     strings_index += 1;
     strings[strings_index] = str;
-    if ( strings_index == strings_size )
-    {
+    if ( strings_index == strings_size ){
         strings_size *= 2;
         strings = realloc ( strings, strings_size * sizeof(char *) );
     }
@@ -58,9 +50,7 @@ strings_add ( char *str )
 }
 
 
-void
-strings_output ( FILE *stream )
-{
+void strings_output(FILE *stream){
     fputs (
         ".data\n"
         ".INTEGER: .string \"%d \"\n",
@@ -72,30 +62,23 @@ strings_output ( FILE *stream )
 }
 
 
-void
-scope_add ( void )
-{
+void scope_add(void){
     scopes_index += 1;
-    if ( scopes_index == scopes_size )
-    {
+    if ( scopes_index == scopes_size ){
         scopes_size *= 2;
-        scopes = realloc ( scopes, scopes_size * sizeof (hash_t *) );
+        scopes = realloc ( scopes, scopes_size * sizeof(hash_t *) );
     }
-    scopes[scopes_index] = ght_create ( HASH_BUCKETS );
+    scopes[scopes_index] = ght_create(HASH_BUCKETS);
 }
 
 
-void
-scope_remove ( void )
-{
+void scope_remove(void){
     ght_finalize ( scopes[scopes_index] );
     scopes_index -= 1;
 }
 
 
-void
-symbol_insert ( char *key, symbol_t *value )
-{
+void symbol_insert(char *key, symbol_t *value){
 #ifdef DUMP_SYMTAB
 fprintf ( stderr, "Inserting (%s,%d)\n", key, value->stack_offset );
 #endif
@@ -104,8 +87,7 @@ fprintf ( stderr, "Inserting (%s,%d)\n", key, value->stack_offset );
 
     ght_insert ( scopes[scopes_index], value, strlen(key)+1, key );
     values_index += 1;
-    if ( values_index == values_size )
-    {
+    if ( values_index == values_size ){
         values_size *= 2;
         values = realloc ( values, values_size * sizeof(symbol_t *) );
     }
@@ -113,14 +95,11 @@ fprintf ( stderr, "Inserting (%s,%d)\n", key, value->stack_offset );
 }
 
 
-symbol_t *
-symbol_get ( char *key )
-{
+symbol_t * symbol_get(char *key){
     int32_t d = scopes_index;
     symbol_t *result = NULL;
-    while ( result == NULL && d > -1 )
-    {
-        result = (symbol_t *) ght_get ( scopes[d], strlen(key)+1, key );
+    while ( result == NULL && d > -1 ){
+        result =(symbol_t *) ght_get ( scopes[d], strlen(key)+1, key );
         d -= 1;
     }
 #ifdef DUMP_SYMTAB
