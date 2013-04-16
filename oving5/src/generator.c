@@ -41,7 +41,6 @@ static void instruction_add ( opcode_t op, char *arg1, char *arg2, int32_t off1,
 static void instructions_print(FILE *stream);
 static void instructions_finalize(void);
 
-
 /*
  * Convenience macro to continue the journey through the tree - just to save
  * on duplicate code, not really necessary
@@ -83,9 +82,6 @@ static void instructions_finalize(void);
     instruction_add ( SYSCALL, STRDUP("exit"), NULL, 0, 0 );\
 } while(false)
 
-
-
-
 void generate(FILE *stream, node_t *root){
     int elegant_solution;
     if(root == NULL )
@@ -96,12 +92,10 @@ void generate(FILE *stream, node_t *root){
             /* Output the data segment */
             strings_output(stream);
             instruction_add ( STRING, STRDUP( ".text" ), NULL, 0, 0 );
-
             RECUR();
             TEXT_HEAD();
 
             /* TODO: Insert a call to the first defined function here */
-
             TEXT_TAIL();
 
             instructions_print(stream);
@@ -212,19 +206,13 @@ instruction_append(instruction_t *next){
         start = last = next;
 }
 
-
-    static void
-instruction_add (
-        opcode_t op, char *arg1, char *arg2, int32_t off1, int32_t off2
-        ){
+static void instruction_add(opcode_t op, char *arg1, char *arg2, int32_t off1, int32_t off2){
     instruction_t *i =(instruction_t *) malloc ( sizeof(instruction_t) );
     *i =(instruction_t) { op, {arg1, arg2}, {off1, off2}, NULL };
     instruction_append(i);
 }
 
-
-    static void
-instructions_print(FILE *stream){
+static void instructions_print(FILE *stream){
     instruction_t *this = start;
     while ( this != NULL ){
         switch(this->opcode){
