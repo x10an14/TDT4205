@@ -122,7 +122,7 @@ void generate(FILE *stream, node_t *root){
              */
              depth++;
              instruction_add(PUSH,ebp,NULL,0,0);
-             instruction_add(MOVE,esp,epb,0,0);
+             instruction_add(MOVE,esp,ebp,0,0);
              RECUR();
              instruction_add(LEAVE,NULL,NULL,0,0);
              depth--;
