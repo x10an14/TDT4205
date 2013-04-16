@@ -112,7 +112,7 @@ void generate(FILE *stream, node_t *root){
             /*Recursively un-nesting contents of function*/
             RECUR();
             /*Returning out of function*/
-            instruction_add(RET,NULL,NULL,0,0)
+            instruction_add(RET,NULL,NULL,0,0);
             break;
 
         case BLOCK:
