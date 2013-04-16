@@ -170,7 +170,7 @@ void generate(FILE *stream, node_t *root){
              * - If var is not local, unwind the stack to its correct base
              */
 
-            /*Iterate over parameter children*/
+            /*Iterate over parameter children -(copied from oeving4 function -nesting)*/
             /*if(root->children[1] != NULL){
                 node_t *current = root->children[1];
                 for(int i = current->n_children-1; i >= 0; i--){
