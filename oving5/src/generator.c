@@ -107,7 +107,7 @@ void generate(FILE *stream, node_t *root){
              * Function definitions:
              * Set up/take down activation record for the function, return value
              */
-
+             printf("FUNCTION node has %d kids.\n", root->n_children);
             break;
 
         case BLOCK:
