@@ -108,12 +108,16 @@ void generate(FILE *stream, node_t *root){
              * Set up/take down activation record for the function, return value
              */
              printf("FUNCTION node has %d kids.\n", root->n_children);
-             for(int i = 0; i < root->n_children; i++){
-                node_t *cur = root->children[i];
-                 printf("\tChild%d has %d kids.\n",i,cur->n_children);
-                 for(int j = 0; j < cur->n_children; j++){
-                    node_t *cur2 = cur->children[j];
-                     printf("\t\tGrandchild%d is of type %s and has %d kids.\n",j,cur2->type.text,cur2->n_children);
+             if(root->n_children < 0){
+                 for(int i = 0; i < root->n_children; i++){
+                    node_t *cur = root->children[i];
+                     printf("\tChild%d has %d kids.\n",i,cur->n_children);
+                     if(cur->n_children > 0){
+                         for(int j = 0; j < cur->n_children; j++){
+                            node_t *cur2 = cur->children[j];
+                             printf("\t\tGrandchild%d is of type %s and has %d kids.\n",j,cur2->type.text,cur2->n_children);
+                         }
+                     }
                  }
              }
             break;
