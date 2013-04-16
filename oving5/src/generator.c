@@ -171,7 +171,7 @@ void generate(FILE *stream, node_t *root){
              */
 
             /*Iterate over parameter children*/
-            if(root->children[1] != NULL){
+            /*if(root->children[1] != NULL){
                 node_t *current = root->children[1];
                 for(int i = current->n_children-1; i >= 0; i--){
                     noode_t *cur = current->children[i];
@@ -182,7 +182,7 @@ void generate(FILE *stream, node_t *root){
                         instruction_add(PUSH,symbol_get(cur->data),NULL,0,0);
                     }
                 }
-            }
+            }*/
             /*Pushing return address for Program Counter*/
 
 
