@@ -235,7 +235,7 @@ void generate(FILE *stream, node_t *root){
             for(int i = 0; i < depth - root->entry->depth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
             }
-            instruction_add(PUSH,STRDUP("(%eax)"),NULL,root->entry->stack_offset,0);
+            instruction_add(PUSH,eax,NULL,root->entry->stack_offset,0);
             break;
 
         case INTEGER:
@@ -262,7 +262,7 @@ void generate(FILE *stream, node_t *root){
             for(int i = 0; i < depth - varDepth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
             }
-            instruction_add(POP,STRDUP("(%eax)"),NULL,varOffset,0);}
+            instruction_add(POP,eax,NULL,varOffset,0);}
             break;
 
         case RETURN_STATEMENT:
