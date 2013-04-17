@@ -132,12 +132,12 @@ void generate(FILE *stream, node_t *root){
              * Blocks:
              * Set up/take down activation record, no return value
              */
-             depth++;
+             {depth++;
              instruction_add(PUSH,ebp,NULL,0,0);
              instruction_add(MOVE,esp,ebp,0,0);
              RECUR();
              instruction_add(LEAVE,NULL,NULL,0,0);
-             depth--;
+             depth--;}
             break;
 
         case DECLARATION:
@@ -170,7 +170,7 @@ void generate(FILE *stream, node_t *root){
              * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
-            // printKids(root,0);
+            {// printKids(root,0);
             node_t *kid = root->children[0];
             if(kid->type.index == TEXT){
                 /*"$.STRINGXX" == 10 char's*/
@@ -182,7 +182,7 @@ void generate(FILE *stream, node_t *root){
                 RECUR();
             }
             instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-            instruction_add(ADD,STRDUP("$4"),esp,0,0);
+            instruction_add(ADD,STRDUP("$4"),esp,0,0);}
             break;
 
         case EXPRESSION:
@@ -227,11 +227,11 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-            printKids(root,0);
+            {printKids(root,0);
             char *strPtr = (char*) malloc(10*sizeof(char));
             sprintf(strPtr,"$%d",*(int *)root->data);
             instruction_add(PUSH,STRDUP(string),NULL,0,0);
-            free(string);
+            free(string);}
             break;
 
         case ASSIGNMENT_STATEMENT:
