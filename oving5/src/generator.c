@@ -144,9 +144,11 @@ void generate(FILE *stream, node_t *root){
              * Declarations:
              * Add space on local stack
              */
-            node_t *VariableList = root->children[0];
-            for(int i = 0; i < VariableList->n_children; i++){
-                instruction_add(SUB,STRDUP("$4"),esp,0,0);
+            if(root->children[0] != NULL){
+                node_t *variableList = root->children[0];
+                for(int i = 0; i < variableList->n_children; i++){
+                    instruction_add(SUB,STRDUP("$4"),esp,0,0);
+                }
             }
             break;
 
