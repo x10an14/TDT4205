@@ -249,7 +249,9 @@ void generate(FILE *stream, node_t *root){
              * Evaluate the expression and put it in EAX
              */
             instruction_add(POP,eax,NULL,0,0);
-            instruction_add(RET,NULL,NULL,0,0);
+            // while(depth > 1){
+            //     instruction_add(LEAVE,NULL,NULL,0,0);
+            // }
             break;
 
         default:
