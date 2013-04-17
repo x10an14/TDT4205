@@ -192,12 +192,37 @@ void generate(FILE *stream, node_t *root){
              * top of the stack according to the kind of expression
              * (single variables/integers handled in separate switch/cases)
              */
-            if(root->n_children > 0){
-                RECUR();
+            if(root->n_children == 2){
+                if(strcmp((char *)root->data,"F") == 1){
+
+                } else{
+                    generate(stream,root->children[0]);
+                    instruction_add(POP,STRDUP("%eax"),NULL,0,0);
+                    generate(stream,root->children[1]);
+                    if(strcmp((char *)root->data,"+") == 1){
+                        instruction_add(ADD,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
+                    } else if(strcmp((char *)root->data,"-") == 1){
+                        instruction_add(SUB,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
+                    } else if(strcmp((char *)root->data,"*") == 1){
+
+                    } else if(strcmp((char *)root->data,"/") == 1){
+
+                    } else if(strcmp((char *)root->data,"==") == 1){
+
+                    } else if(strcmp((char *)root->data,">") == 1){
+
+                    } else if(strcmp((char *)root->data,"<") == 1){
+
+                    } else if(strcmp((char *)root->data,"<=") == 1){
+
+                    } else if(strcmp((char *)root->data,">=") == 1){
+
+                    }
+                }
             } else{
+                generate(stream,root->children[0]);
 
             }
-
             break;
 
         case VARIABLE:
@@ -210,7 +235,7 @@ void generate(FILE *stream, node_t *root){
             for(int i = 0; i < depth - root->entry->depth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
             }
-            instruction_add(PUSH,STRDUP("(%eax)"),NULL,root->entry->offset,0);
+            instruction_add(PUSH,STRDUP("(%eax)"),NULL,root->entry->stack_offset,0);
             break;
 
         case INTEGER:
@@ -232,7 +257,7 @@ void generate(FILE *stream, node_t *root){
             {generate(stream,root->children[1]);
             node_t *var = root->children[0];
             int varDepth = var->entry->depth;
-            int varOffset = var->entry->offset;
+            int varOffset = var->entry->stack_offset;
             instruction_add(MOVE,STRDUP("(%epb)"),eax,0,0);
             for(int i = 0; i < depth - varDepth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
