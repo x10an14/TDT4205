@@ -175,10 +175,13 @@ void generate(FILE *stream, node_t *root){
             if(kid->type.index == EXPRESSION){
                 RECUR();
             } else if(kid->type.index == TEXT){
-                printf("%s, %d\n",kid->data,kid->data);
-                instruction_add(PUSH,STRDUP(strcat("$.STRING",*(int32_t*)kid->data)),NULL,0,0);
+                int size = sizeof(kid->data); size += 8;
+                char *stringArray = (char*) malloc(size*sizeof(char));
+                sprintf(stringArray,"¤.STRING%d",kid->data);
+                instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
                 instruction_add(ADD,STRDUP("$4"),esp,0,0);
+                free(stringArray);
             }
             break;
 
