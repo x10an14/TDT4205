@@ -230,8 +230,8 @@ void generate(FILE *stream, node_t *root){
             {printKids(root,0);
             char *strPtr = (char*) malloc(10*sizeof(char));
             sprintf(strPtr,"$%d",*(int *)root->data);
-            instruction_add(PUSH,STRDUP(string),NULL,0,0);
-            free(string);}
+            instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
+            free(strPtr);}
             break;
 
         case ASSIGNMENT_STATEMENT:
