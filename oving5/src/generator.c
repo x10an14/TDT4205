@@ -108,7 +108,7 @@ void generate(FILE *stream, node_t *root){
             TEXT_HEAD();
 
             /* TODO: Insert a call to the first defined function here */
-            instruction_add(CALL,STRDUP(root->children[0]->children[0]->data),NULL,0,0);
+            instruction_add(CALL,STRDUP((char *)root->children[0]->children[0]->children[0]->data),NULL,0,0);
             TEXT_TAIL();
 
             instructions_print(stream);
