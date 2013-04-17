@@ -206,29 +206,18 @@ void generate(FILE *stream, node_t *root){
              * - Find the variable's stack offset
              * - If var is not local, unwind the stack to its correct base
              */
-
-            /*Iterate over parameter children -(copied from oeving4 function -nesting)*/
-            /*if(root->children[1] != NULL){
-                node_t *current = root->children[1];
-                for(int i = current->n_children-1; i >= 0; i--){
-                    noode_t *cur = current->children[i];
-                    if(i == 0){
-                        instruction_add(SUB,esp,NULL,8,0);
-                        instruction_add(MOVE,symbol_get(cur->data),esp,0,0);
-                    } else{
-                        instruction_add(PUSH,symbol_get(cur->data),NULL,0,0);
-                    }
-                }
-            }*/
-            /*Pushing return address for Program Counter*/
+            instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
+            for(int i = 0; i < depth - root->entry->depth; i++){
+                instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
+            }
+            instruction_add(PUSH,STRDUP("(%eax)"),NULL,root->entry->offset,0);
             break;
 
         case INTEGER:
             /*
              * Integers: constants which can just be put on stack
              */
-            {printKids(root,0);
-            char *strPtr = (char*) malloc(10*sizeof(char));
+            {char *strPtr = (char*) malloc(10*sizeof(char));
             sprintf(strPtr,"$%d",*(int *)root->data);
             instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
             free(strPtr);}
@@ -244,16 +233,11 @@ void generate(FILE *stream, node_t *root){
             node_t *var = root->children[0];
             int varDepth = var->entry->depth;
             int varOffset = var->entry->offset;
-            instruction_add(MOVE,(epb),eax,0,0);
-            for(int i = 0; i < depth-varDepth; i++){
+            instruction_add(MOVE,STRDUP("(%epb)"),eax,0,0);
+            for(int i = 0; i < depth - varDepth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
             }
-            if(varOffset > 0){
-                instruction_add(ADD,STRDUP(varOffset),eax,0,0);
-            } else{
-                instruction_add(SUB,STRDUP(varOffset),eax,0,0);
-            }
-            instruction_add(POP,STRDUP("(%eax)"),NULL,0,0);}
+            instruction_add(POP,STRDUP("(%eax)"),NULL,varOffset,0);}
             break;
 
         case RETURN_STATEMENT:
