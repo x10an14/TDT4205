@@ -146,12 +146,12 @@ void generate(FILE *stream, node_t *root){
              * Declarations:
              * Add space on local stack
              */
-            if(root->children[0] != NULL){
-                node_t *variableList = root->children[0];
-                for(int i = 0; i < variableList->n_children; i++){
-                    instruction_add(SUB,STRDUP("$4"),esp,0,0);
-                }
-            }
+            // if(root->children[0] != NULL){
+            //     node_t *variableList = root->children[0];
+            //     for(int i = 0; i < variableList->n_children; i++){
+            //         instruction_add(SUB,STRDUP("$4"),esp,0,0);
+            //     }
+            // }
             break;
 
         case PRINT_LIST:
@@ -159,10 +159,10 @@ void generate(FILE *stream, node_t *root){
              * Print lists:
              * Emit the list of print items, followed by newline (0x0A)
              */
-            RECUR();
-            instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
-            instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
-            instruction_add(ADD,STRDUP("$4"),esp,0,0);
+            // RECUR();
+            // instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
+            // instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
+            // instruction_add(ADD,STRDUP("$4"),esp,0,0);
             break;
 
         case PRINT_ITEM:
@@ -171,21 +171,21 @@ void generate(FILE *stream, node_t *root){
              * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
-            {node_t *kid = root->children[0];
-            if(kid->type.index == TEXT){
-                /*"$.STRINGXX" == 10 char's*/
-                char *stringArray = (char*) malloc(12*sizeof(char));
-                sprintf(stringArray,"$.STRING%d",*(int *)kid->data);
-                instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
-                free(stringArray);
-                instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                instruction_add(ADD,STRDUP("$4"),esp,0,0);
-            } else{
-                RECUR();
-                instruction_add(PUSH,STRDUP("$.INTEGER"),NULL,0,0);
-                instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                instruction_add(ADD,STRDUP("$8"),esp,0,0);}
-            }
+            // {node_t *kid = root->children[0];
+            // if(kid->type.index == TEXT){
+            //     /*"$.STRINGXX" == 10 char's*/
+            //     char *stringArray = (char*) malloc(12*sizeof(char));
+            //     sprintf(stringArray,"$.STRING%d",*(int *)kid->data);
+            //     instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
+            //     free(stringArray);
+            //     instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
+            //     instruction_add(ADD,STRDUP("$4"),esp,0,0);
+            // } else{
+            //     RECUR();
+            //     instruction_add(PUSH,STRDUP("$.INTEGER"),NULL,0,0);
+            //     instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
+            //     instruction_add(ADD,STRDUP("$8"),esp,0,0);}
+            // }
             break;
 
         case EXPRESSION:
@@ -245,10 +245,10 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-            {char *strPtr = (char*) malloc(10*sizeof(char));
-            sprintf(strPtr,"$%d",*(int *)root->data);
-            instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
-            free(strPtr);}
+            // {char *strPtr = (char*) malloc(10*sizeof(char));
+            // sprintf(strPtr,"$%d",*(int *)root->data);
+            // instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
+            // free(strPtr);}
             break;
 
         case ASSIGNMENT_STATEMENT:
@@ -257,15 +257,15 @@ void generate(FILE *stream, node_t *root){
              * Right hand side is an expression, find left hand side on stack
              *(unwinding if necessary)
              */
-            {generate(stream,root->children[1]);
-            node_t *var = root->children[0];
-            int varDepth = var->entry->depth;
-            int varOffset = var->entry->stack_offset;
-            instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
-            for(int i = 0; i < depth - varDepth; i++){
-                instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
-            }
-            instruction_add(POP,eax,NULL,varOffset,0);}
+            // {generate(stream,root->children[1]);
+            // node_t *var = root->children[0];
+            // int varDepth = var->entry->depth;
+            // int varOffset = var->entry->stack_offset;
+            // instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
+            // for(int i = 0; i < depth - varDepth; i++){
+            //     instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
+            // }
+            // instruction_add(POP,eax,NULL,varOffset,0);}
             break;
 
         case RETURN_STATEMENT:
@@ -273,7 +273,7 @@ void generate(FILE *stream, node_t *root){
              * Return statements:
              * Evaluate the expression and put it in EAX
              */
-            instruction_add(POP,eax,NULL,0,0);
+            // instruction_add(POP,eax,NULL,0,0);
             // while(depth > 1){
             //     instruction_add(LEAVE,NULL,NULL,0,0);
             // }
