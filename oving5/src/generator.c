@@ -88,11 +88,9 @@ void printKids(node_t *root, int generation){
         generation++;
         for(int i = 0; i < root->n_children; i++){
             kid = root->children[i];
-            printf("Gen %d kid #%d == %s\n",generation,i,kid->type.text);
+            printf("Gen %d kid #%d == %s, and has %d kids.\n",generation,i,kid->type.text,kid->n_children);
             printKids(kid,generation);
         }
-    } else{
-        printf("This node has no kids!\n");
     }
 }
 
@@ -160,7 +158,7 @@ void generate(FILE *stream, node_t *root){
              * Print lists:
              * Emit the list of print items, followed by newline (0x0A)
              */
-            printKids(root,0);
+            // printKids(root,0);
             RECUR();
             instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
             instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
@@ -173,6 +171,7 @@ void generate(FILE *stream, node_t *root){
              * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
+            printKids(root,0);
             if(root->type.index == EXPRESSION){
                 RECUR();
             }else if(root->type.index == TEXT){
