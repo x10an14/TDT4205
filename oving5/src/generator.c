@@ -158,7 +158,6 @@ void generate(FILE *stream, node_t *root){
              * Print lists:
              * Emit the list of print items, followed by newline (0x0A)
              */
-            // printKids(root,0);
             RECUR();
             instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
             instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
@@ -172,10 +171,10 @@ void generate(FILE *stream, node_t *root){
              * and set up a suitable call to printf
              */
             printKids(root,0);
-            if(root->type.index == EXPRESSION){
+            node_t *kid = root->children[0];
+            if(kid->type.index == EXPRESSION){
                 RECUR();
-            }else if(root->type.index == TEXT){
-
+            } else if(kid->type.index == TEXT){
                 instruction_add(PUSH,STRDUP(root->data),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
                 instruction_add(ADD,STRDUP("$4"),esp,0,0);
@@ -213,8 +212,6 @@ void generate(FILE *stream, node_t *root){
                 }
             }*/
             /*Pushing return address for Program Counter*/
-
-
             break;
 
         case INTEGER:
