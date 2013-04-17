@@ -157,7 +157,7 @@ void generate(FILE *stream, node_t *root){
              * Print lists:
              * Emit the list of print items, followed by newline (0x0A)
              */
-            printKids(root);
+            printKids(root,0);
             RECUR();
             instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
             instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
