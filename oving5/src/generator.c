@@ -174,7 +174,7 @@ void generate(FILE *stream, node_t *root){
                 RECUR();
             }else if(root->type.index == TEXT){
 
-                instruction_add(PUSH,STRDUP(root->children[i]->data),NULL,0,0);
+                instruction_add(PUSH,STRDUP(root->data),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
                 instruction_add(ADD,STRDUP("$4"),esp,0,0);
             }
@@ -219,7 +219,7 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-             instruction_add(PUSH,strcat("$",*((int32_t *)root->data)),NULL,0,0);
+             instruction_add(PUSH,strcat("$",*((char *)root->data)),NULL,0,0);
             break;
 
         case ASSIGNMENT_STATEMENT:
