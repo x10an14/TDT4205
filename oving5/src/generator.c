@@ -240,6 +240,9 @@ void generate(FILE *stream, node_t *root){
              * Right hand side is an expression, find left hand side on stack
              *(unwinding if necessary)
              */
+            generate(stream,root->children[1]);
+            printf("Kid 0 is of type %s\n",root->children[0]->type.text);
+            printKids(root->children[0],1);
 
             break;
 
