@@ -192,37 +192,37 @@ void generate(FILE *stream, node_t *root){
              * top of the stack according to the kind of expression
              * (single variables/integers handled in separate switch/cases)
              */
-            if(root->n_children == 2){
-                if(strcmp((char *)root->data,"F") == 1){
+            // if(root->n_children == 2){
+            //     if(strcmp((char *)root->data,"F") == 1){
 
-                } else{
-                    generate(stream,root->children[0]);
-                    instruction_add(POP,STRDUP("%eax"),NULL,0,0);
-                    generate(stream,root->children[1]);
-                    if(strcmp((char *)root->data,"+") == 1){
-                        instruction_add(ADD,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
-                    } else if(strcmp((char *)root->data,"-") == 1){
-                        instruction_add(SUB,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
-                    } else if(strcmp((char *)root->data,"*") == 1){
+            //     } else{
+            //         generate(stream,root->children[0]);
+            //         instruction_add(POP,STRDUP("%eax"),NULL,0,0);
+            //         generate(stream,root->children[1]);
+            //         if(strcmp((char *)root->data,"+") == 1){
+            //             instruction_add(ADD,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
+            //         } else if(strcmp((char *)root->data,"-") == 1){
+            //             instruction_add(SUB,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
+            //         } else if(strcmp((char *)root->data,"*") == 1){
 
-                    } else if(strcmp((char *)root->data,"/") == 1){
+            //         } else if(strcmp((char *)root->data,"/") == 1){
 
-                    } else if(strcmp((char *)root->data,"==") == 1){
+            //         } else if(strcmp((char *)root->data,"==") == 1){
 
-                    } else if(strcmp((char *)root->data,">") == 1){
+            //         } else if(strcmp((char *)root->data,">") == 1){
 
-                    } else if(strcmp((char *)root->data,"<") == 1){
+            //         } else if(strcmp((char *)root->data,"<") == 1){
 
-                    } else if(strcmp((char *)root->data,"<=") == 1){
+            //         } else if(strcmp((char *)root->data,"<=") == 1){
 
-                    } else if(strcmp((char *)root->data,">=") == 1){
+            //         } else if(strcmp((char *)root->data,">=") == 1){
 
-                    }
-                }
-            } else{
-                generate(stream,root->children[0]);
+            //         }
+            //     }
+            // } else{
+            //     generate(stream,root->children[0]);
 
-            }
+            // }
             break;
 
         case VARIABLE:
