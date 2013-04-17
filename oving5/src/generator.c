@@ -91,6 +91,8 @@ void printKids(node_t *root, int generation){
             printf("Gen %d kid #%d == %s\n",generation,i,kid->type.text);
             printKids(kid,generation);
         }
+    } else{
+        printf("This node has no kids!\n");
     }
 }
 
