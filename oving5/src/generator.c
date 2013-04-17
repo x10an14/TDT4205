@@ -133,7 +133,10 @@ void generate(FILE *stream, node_t *root){
              * Declarations:
              * Add space on local stack
              */
-
+            node_t *VariableList = root->children[0];
+            for(int i = 0; i < VariableList->n_children; i++){
+                instruction_add(ADD,esp,NULL,-4,0);
+            }
             break;
 
         case PRINT_LIST:
@@ -141,7 +144,10 @@ void generate(FILE *stream, node_t *root){
              * Print lists:
              * Emit the list of print items, followed by newline (0x0A)
              */
-
+            RECUR();
+            instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
+            instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
+            instruction_add(ADD,STRDUP("$4"),esp,0,0);
             break;
 
         case PRINT_ITEM:
@@ -150,7 +156,15 @@ void generate(FILE *stream, node_t *root){
              * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
-
+            for(int i = 0; i < root->n_children; i++){
+                if(root->children[i]->type.index == EXPRESSION){
+                    //WTFBBQ?
+                } else{
+                    instruction_add(PUSH,STRDUP(root->children[i]->data),NULL,0,0);
+                    instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
+                    instruction_add(ADD,STRDUP("$4"),esp,0,0);
+                }
+            }
             break;
 
         case EXPRESSION:
@@ -192,7 +206,7 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-
+             instruction_add(PUSH,strcat("$",*((int32_t *)root->data)),NULL,0,0);
             break;
 
         case ASSIGNMENT_STATEMENT:
