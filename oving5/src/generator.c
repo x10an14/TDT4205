@@ -175,7 +175,7 @@ void generate(FILE *stream, node_t *root){
             if(kid->type.index == EXPRESSION){
                 RECUR();
             } else if(kid->type.index == TEXT){
-                instruction_add(PUSH,STRDUP(root->data),NULL,0,0);
+                instruction_add(PUSH,STRDUP(kid->data),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
                 instruction_add(ADD,STRDUP("$4"),esp,0,0);
             }
