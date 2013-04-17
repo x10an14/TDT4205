@@ -175,8 +175,8 @@ void generate(FILE *stream, node_t *root){
             if(kid->type.index == EXPRESSION){
                 RECUR();
             } else if(kid->type.index == TEXT){
-                int size = sizeof(kid->data); size += 8;
-                char *stringArray = (char*) malloc(size*sizeof(char));
+                /*"$.STRINGXX" == 10 char's*/
+                char *stringArray = (char*) malloc(10*sizeof(char));
                 sprintf(stringArray,"¤.STRING%d",kid->data);
                 instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
