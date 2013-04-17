@@ -172,9 +172,7 @@ void generate(FILE *stream, node_t *root){
              */
             printKids(root,0);
             node_t *kid = root->children[0];
-            if(kid->type.index == EXPRESSION){
-                RECUR();
-            } else if(kid->type.index == TEXT){
+            if(kid->type.index == TEXT){
                 /*"$.STRINGXX" == 10 char's*/
                 char *stringArray = (char*) malloc(12*sizeof(char));
                 sprintf(stringArray,"$.STRING%d",*(int*)kid->data);
@@ -182,6 +180,8 @@ void generate(FILE *stream, node_t *root){
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
                 instruction_add(ADD,STRDUP("$4"),esp,0,0);
                 free(stringArray);
+            } else{
+                RECUR();
             }
             break;
 
@@ -222,7 +222,10 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-             instruction_add(PUSH,strcat("$",*((char *)root->data)),NULL,0,0);
+            char *string = (char*) malloc(1*sizeof(char)+sizeof(*(char*)root->data));
+            sprintf(string,"$%d",*(int*)root->data);
+            instruction_add(PUSH,STRDUP(string),NULL,0,0);
+            free(string);
             break;
 
         case ASSIGNMENT_STATEMENT:
