@@ -85,10 +85,11 @@ static void instructions_finalize(void);
 void printKids(node_t *root, int generation){
     if(root->n_children > 0){
         node_t *kid;
+        generation++;
         for(int i = 0; i < root->n_children; i++){
             kid = root->children[i];
-            printf("Generation %d kid #%d is of type %s\n",generation,i,kid->type.text);
-            printKids(kid,generation++);
+            printf("Gen %d kid #%d == %s\n",generation,i,kid->type.text);
+            printKids(kid,generation);
         }
     }
 }
