@@ -222,7 +222,7 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-            char *string = (char*) malloc(1*sizeof(char)+sizeof(*(char*)root->data));
+            char *string = malloc(4*sizeof(char));
             sprintf(string,"$%d",*(int*)root->data);
             instruction_add(PUSH,STRDUP(string),NULL,0,0);
             free(string);
