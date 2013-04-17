@@ -170,19 +170,19 @@ void generate(FILE *stream, node_t *root){
              * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
-            printKids(root,0);
+            // printKids(root,0);
             node_t *kid = root->children[0];
             if(kid->type.index == TEXT){
                 /*"$.STRINGXX" == 10 char's*/
                 char *stringArray = (char*) malloc(12*sizeof(char));
-                sprintf(stringArray,"$.STRING%d",*(int*)kid->data);
+                sprintf(stringArray,"$.STRING%d",*(int *)kid->data);
                 instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
-                instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                instruction_add(ADD,STRDUP("$4"),esp,0,0);
                 free(stringArray);
             } else{
                 RECUR();
             }
+            instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
+            instruction_add(ADD,STRDUP("$4"),esp,0,0);
             break;
 
         case EXPRESSION:
@@ -192,6 +192,11 @@ void generate(FILE *stream, node_t *root){
              * top of the stack according to the kind of expression
              * (single variables/integers handled in separate switch/cases)
              */
+            if(root->n_children > 0){
+                RECUR();
+            } else{
+
+            }
 
             break;
 
@@ -222,8 +227,9 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-            char *string = malloc(4*sizeof(char));
-            sprintf(string,"$%d",*(int*)root->data);
+            printKids(root,0);
+            char *strPtr = (char*) malloc(10*sizeof(char));
+            sprintf(strPtr,"$%d",*(int *)root->data);
             instruction_add(PUSH,STRDUP(string),NULL,0,0);
             free(string);
             break;
