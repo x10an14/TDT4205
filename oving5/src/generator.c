@@ -82,6 +82,17 @@ static void instructions_finalize(void);
     instruction_add(SYSCALL, STRDUP("exit"), NULL, 0, 0);\
 } while(false)
 
+void printKids(node_t *root, int generation){
+    if(root->n_children > 0){
+        node_t *kid;
+        for(int i = 0; i < root->n_children; i++){
+            kid = root->children[i];
+            printf("Generation %d kid #%d is of type %s\n",generation,i,kid->type.text);
+            printKids(kid,generation++);
+        }
+    }
+}
+
 void generate(FILE *stream, node_t *root){
     int elegant_solution;
     if(root == NULL)
@@ -135,7 +146,7 @@ void generate(FILE *stream, node_t *root){
              */
             node_t *VariableList = root->children[0];
             for(int i = 0; i < VariableList->n_children; i++){
-                instruction_add(ADD,esp,NULL,-4,0);
+                instruction_add(SUB,STRDUP("$4"),esp,0,0);
             }
             break;
 
@@ -144,6 +155,9 @@ void generate(FILE *stream, node_t *root){
              * Print lists:
              * Emit the list of print items, followed by newline (0x0A)
              */
+            if(root->n_children > 0){
+                for(int i = 0)
+            }
             RECUR();
             instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
             instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
@@ -156,14 +170,13 @@ void generate(FILE *stream, node_t *root){
              * Determine what kind of value(string literal or expression)
              * and set up a suitable call to printf
              */
-            for(int i = 0; i < root->n_children; i++){
-                if(root->children[i]->type.index == EXPRESSION){
-                    //WTFBBQ?
-                } else{
-                    instruction_add(PUSH,STRDUP(root->children[i]->data),NULL,0,0);
-                    instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                    instruction_add(ADD,STRDUP("$4"),esp,0,0);
-                }
+            if(root->type.index == EXPRESSION){
+                RECUR();
+            }else if(root->type.index == TEXT){
+
+                instruction_add(PUSH,STRDUP(root->children[i]->data),NULL,0,0);
+                instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
+                instruction_add(ADD,STRDUP("$4"),esp,0,0);
             }
             break;
 
