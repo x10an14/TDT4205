@@ -241,7 +241,7 @@ void generate(FILE *stream, node_t *root){
              *(unwinding if necessary)
              */
             generate(stream,root->children[1]);
-            printf("%d\n",*(int *)root->children[0]->data);
+            printf("%s\n",*(char *)root->children[0]->data);
 
             break;
 
