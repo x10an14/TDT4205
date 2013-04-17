@@ -240,9 +240,20 @@ void generate(FILE *stream, node_t *root){
              * Right hand side is an expression, find left hand side on stack
              *(unwinding if necessary)
              */
-            generate(stream,root->children[1]);
-            printf("%s\n",*(char *)root->children[0]->data);
-
+            {generate(stream,root->children[1]);
+            node_t *var = root->children[0];
+            int varDepth = var->entry->depth;
+            int varOffset = var->entry->offset;
+            instruction_add(MOVE,(epb),eax,0,0);
+            for(int i = 0; i < depth-varDepth; i++){
+                instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
+            }
+            if(varOffset > 0){
+                instruction_add(ADD,STRDUP(varOffset),eax,0,0);
+            } else{
+                instruction_add(SUB,STRDUP(varOffset),eax,0,0);
+            }
+            instruction_add(POP,STRDUP("(%eax)"),NULL,0,0);}
             break;
 
         case RETURN_STATEMENT:
