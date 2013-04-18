@@ -184,8 +184,6 @@ void generate(FILE *stream, node_t *root){
                 RECUR();
                 instruction_add(PUSH,STRDUP("$.INTEGER"),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                instruction_add(PUSH,esp,NULL,0,0);
-                instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
                 instruction_add(ADD,STRDUP("$8"),esp,0,0);
             }
             }
