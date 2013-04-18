@@ -184,7 +184,7 @@ void generate(FILE *stream, node_t *root){
                 RECUR();
                 instruction_add(PUSH,STRDUP("$.INTEGER"),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                // instruction_add(ADD,STRDUP("$8"),esp,0,0);
+                instruction_add(ADD,STRDUP("$8"),esp,0,0);
             }}
             break;
 
@@ -234,7 +234,7 @@ void generate(FILE *stream, node_t *root){
              * - Find the variable's stack offset
              * - If var is not local, unwind the stack to its correct base
              */
-            printf("depth:%d, root->depth:%d, root->offset:%d\n",depth,root->entry->depth,root->entry->stack_offset);
+            // printf("depth:%d, root->depth:%d, root->offset:%d\n",depth,root->entry->depth,root->entry->stack_offset);
             instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
             for(int i = 0; i < depth - root->entry->depth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
@@ -246,10 +246,10 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-            // {char *strPtr = (char*) malloc(10*sizeof(char));
-            // sprintf(strPtr,"$%d",*(int *)root->data);
-            // instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
-            // free(strPtr);}
+            {char *strPtr = (char*) malloc(10*sizeof(char));
+            sprintf(strPtr,"$%d",*(int *)root->data);
+            instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
+            free(strPtr);}
             break;
 
         case ASSIGNMENT_STATEMENT:
