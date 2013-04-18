@@ -174,7 +174,6 @@ void generate(FILE *stream, node_t *root){
              */
             {node_t *kid = root->children[0];
             if(kid->type.index == TEXT){
-                /*"$.STRINGXX" == 10 char's*/
                 char *stringArray = (char*) malloc(12*sizeof(char));
                 sprintf(stringArray,"$.STRING%d",*(int *)kid->data);
                 instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
@@ -198,37 +197,52 @@ void generate(FILE *stream, node_t *root){
              * top of the stack according to the kind of expression
              * (single variables/integers handled in separate switch/cases)
              */
-            // if(root->n_children == 2){
-            //     if(strcmp((char *)root->data,"F") == 1){
-
-            //     } else{
-            //         generate(stream,root->children[0]);
-            //         instruction_add(POP,STRDUP("%eax"),NULL,0,0);
-            //         generate(stream,root->children[1]);
-            //         if(strcmp((char *)root->data,"+") == 1){
-            //             instruction_add(ADD,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
-            //         } else if(strcmp((char *)root->data,"-") == 1){
-            //             instruction_add(SUB,STRDUP("(%esp)"),STRDUP("(%eax)"),0,0);
-            //         } else if(strcmp((char *)root->data,"*") == 1){
-
-            //         } else if(strcmp((char *)root->data,"/") == 1){
-
-            //         } else if(strcmp((char *)root->data,"==") == 1){
-
-            //         } else if(strcmp((char *)root->data,">") == 1){
-
-            //         } else if(strcmp((char *)root->data,"<") == 1){
-
-            //         } else if(strcmp((char *)root->data,"<=") == 1){
-
-            //         } else if(strcmp((char *)root->data,">=") == 1){
-
-            //         }
-            //     }
-            // } else{
-            //     generate(stream,root->children[0]);
-
-            // }
+            if(root->n_children == 2){
+                if(strcmp((char *)root->data,"F") == 1){
+                    RECUR();
+                    instruction_add(PUSH,eax,NULL,0,0);
+                } else{
+                    generate(stream,root->children[0]);
+                    generate(stream,root->children[1]);
+                    instruction_add(POP,ebx,NULL,0,0);
+                    instruction_add(POP,eax,NULL,0,0);
+                    if(strcmp((char *)root->data,"+") == 1){
+                        instruction_add(ADD,ebx,eax,0,0);
+                    } else if(strcmp((char *)root->data,"-") == 1){
+                        instruction_add(SUB,ebx,eax,0,0);
+                    } else if(strcmp((char *)root->data,"*") == 1){
+                        instruction_add(MUL,ebx,NULL,0,0);
+                    } else if(strcmp((char *)root->data,"/") == 1){
+                        instruction_add(CLTD,NULL,NULL,0,0);
+                        instruction_add(DIV,ebx,NULL,0,0);
+                    } else{ //Comparison operators
+                        instruction_add(CMP,eax,ebx,0,0);
+                        if(strcmp((char *)root->data,">") == 1){
+                            instruction_add(SETG,al,NULL,0,0);
+                        } else if(strcmp((char *)root->data,"<") == 1){
+                            instruction_add(SETL,al,NULL,0,0);
+                        } else if(strcmp((char *)root->data,"==") == 1){
+                            instruction_add(SETE,al,NULL,0,0);
+                        } else if(strcmp((char *)root->data,"<=") == 1){
+                            instruction_add(SETLE,al,NULL,0,0);
+                        } else if(strcmp((char *)root->data,">=") == 1){
+                            instruction_add(SETGE,al,NULL,0,0);
+                        }
+                        instruction_add(CBW,NULL,NULL,0,0);
+                        instruction_add(CWDE,NULL,NULL,0,0);
+                    }
+                    instruction_add(PUSH,eax,NULL,0,0);
+                }
+            } else{
+                generate(stream,root->children[0]);
+                instruction_add(POP,eax,NULL,0,0);
+                if(strcmp((char *)root->data,"-") == 1){
+                    instruction_add(MOVE,STRDUP("$0"),ebx,0,0);
+                    instruction_add(SUB,STRDUP("$1"),ebx,0,0);
+                    instruction_add(MUL,ebx,NULL,0,0);
+                }
+                instruction_add(PUSH,eax,NULL,0,0);
+            }
             break;
 
         case VARIABLE:
