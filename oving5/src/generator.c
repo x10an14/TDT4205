@@ -162,6 +162,7 @@ void generate(FILE *stream, node_t *root){
             RECUR();
             instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
             instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
+            //Someone tells me that the below line is unnecessary for all SYSCALL's
             // instruction_add(ADD,STRDUP("$4"),esp,0,0);
             break;
 
@@ -179,12 +180,13 @@ void generate(FILE *stream, node_t *root){
                 instruction_add(PUSH,STRDUP(stringArray),NULL,0,0);
                 free(stringArray);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                instruction_add(ADD,STRDUP("$4"),esp,0,0);
+                //See line 165
+                // instruction_add(ADD,STRDUP("$4"),esp,0,0);
             } else{
                 RECUR();
                 instruction_add(PUSH,STRDUP("$.INTEGER"),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                //The below line segfaults (Value out of bounds?)
+                //The below line segfaults (Value out of bounds?) (Line 165?)
                 // instruction_add(ADD,STRDUP("$8"),esp,0,0);
             }}
             break;
