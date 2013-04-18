@@ -184,9 +184,8 @@ void generate(FILE *stream, node_t *root){
                 RECUR();
                 instruction_add(PUSH,STRDUP("$.INTEGER"),NULL,0,0);
                 instruction_add(SYSCALL,STRDUP("printf"),NULL,0,0);
-                instruction_add(ADD,STRDUP("$8"),esp,0,0);
-            }
-            }
+                // instruction_add(ADD,STRDUP("$8"),esp,0,0);
+            }}
             break;
 
         case EXPRESSION:
@@ -274,7 +273,7 @@ void generate(FILE *stream, node_t *root){
              * Return statements:
              * Evaluate the expression and put it in EAX
              */
-            // instruction_add(POP,eax,NULL,0,0);
+            instruction_add(POP,eax,NULL,0,0);
             // while(depth > 1){
             //     instruction_add(LEAVE,NULL,NULL,0,0);
             // }
