@@ -234,6 +234,7 @@ void generate(FILE *stream, node_t *root){
              * - Find the variable's stack offset
              * - If var is not local, unwind the stack to its correct base
              */
+            printf("depth:%d, root->depth:%d, root->offset:%d\n",depth,root->entry->depth,root->entry->offset);
             instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
             for(int i = 0; i < depth - root->entry->depth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
