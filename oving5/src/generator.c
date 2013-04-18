@@ -162,7 +162,7 @@ void generate(FILE *stream, node_t *root){
             RECUR();
             instruction_add(PUSH,STRDUP("$10"),NULL,0,0);
             instruction_add(SYSCALL,STRDUP("putchar"),NULL,0,0);
-            instruction_add(ADD,STRDUP("$4"),esp,0,0);
+            // instruction_add(ADD,STRDUP("$4"),esp,0,0);
             break;
 
         case PRINT_ITEM:
@@ -237,12 +237,12 @@ void generate(FILE *stream, node_t *root){
              */
             // printf("depth:%d, root->depth:%d, root->offset:%d\n",depth,root->entry->depth,root->entry->stack_offset);
              //The below line segfaults in funcall, return_nested, and uminus.
-            /*instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
+            instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
             for(int i = 0; i < depth - root->entry->depth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
             }
             //The below line segfaults every test.
-            instruction_add(PUSH,eax,NULL,root->entry->stack_offset,0);*/
+            instruction_add(PUSH,eax,NULL,root->entry->stack_offset,0);
             break;
 
         case INTEGER:
@@ -261,7 +261,7 @@ void generate(FILE *stream, node_t *root){
              * Right hand side is an expression, find left hand side on stack
              *(unwinding if necessary)
              */
-            /*{generate(stream,root->children[1]);
+            {generate(stream,root->children[1]);
             node_t *var = root->children[0];
             int varDepth = var->entry->depth;
             int varOffset = var->entry->stack_offset;
@@ -270,7 +270,7 @@ void generate(FILE *stream, node_t *root){
             for(int i = 0; i < depth - varDepth; i++){
                 instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
             }
-            instruction_add(POP,eax,NULL,varOffset,0);}*/
+            instruction_add(POP,eax,NULL,varOffset,0);}
             break;
 
         case RETURN_STATEMENT:
