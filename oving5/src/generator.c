@@ -245,10 +245,10 @@ void generate(FILE *stream, node_t *root){
             /*
              * Integers: constants which can just be put on stack
              */
-            // {char *strPtr = (char*) malloc(10*sizeof(char));
-            // sprintf(strPtr,"$%d",*(int *)root->data);
-            // instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
-            // free(strPtr);}
+            {char *strPtr = (char*) malloc(10*sizeof(char));
+            sprintf(strPtr,"$%d",*(int *)root->data);
+            instruction_add(PUSH,STRDUP(strPtr),NULL,0,0);
+            free(strPtr);}
             break;
 
         case ASSIGNMENT_STATEMENT:
@@ -257,15 +257,15 @@ void generate(FILE *stream, node_t *root){
              * Right hand side is an expression, find left hand side on stack
              *(unwinding if necessary)
              */
-            {generate(stream,root->children[1]);
-            node_t *var = root->children[0];
-            int varDepth = var->entry->depth;
-            int varOffset = var->entry->stack_offset;
-            instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
-            for(int i = 0; i < depth - varDepth; i++){
-                instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
-            }
-            instruction_add(POP,eax,NULL,varOffset,0);}
+            // {generate(stream,root->children[1]);
+            // node_t *var = root->children[0];
+            // int varDepth = var->entry->depth;
+            // int varOffset = var->entry->stack_offset;
+            // instruction_add(MOVE,STRDUP("(%ebp)"),eax,0,0);
+            // for(int i = 0; i < depth - varDepth; i++){
+            //     instruction_add(MOVE,STRDUP("(%eax)"),eax,0,0);
+            // }
+            // instruction_add(POP,eax,NULL,varOffset,0);}
             break;
 
         case RETURN_STATEMENT:
