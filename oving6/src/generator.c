@@ -524,7 +524,7 @@ void generate(FILE *stream, node_t *root){
 
 		case WHILE_STATEMENT:
 			{/* Make start-of-while-loop label */
-			char *start = (char*) malloc(20*sizeof(char));
+			char *start = (char*) malloc(sizeof(char));
 			sprintf(start, "WHILE_START%d", START); START++;
 
 			/* Add said label to code */
@@ -538,7 +538,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 
 			/* Make IF label */
-			char *fiLabel = (char*) malloc(18*sizeof(char));
+			char *fiLabel = (char*) malloc(sizeof(char));
 			sprintf(fiLabel, "WHILE_END%d", FI); FI++;
 
 			/* If expression == false, jump to FI label */
@@ -565,7 +565,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(POP, eax, NULL, 0, 0);
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 			/* Make FI label for jump if result == false */
-			char *fiLabel =(char*) malloc(sizeof(char) *12);
+			char *fiLabel =(char*) malloc(sizeof(char));
 			sprintf(fiLabel, "FI%d",FI); FI++;
 			if(root->n_children == 2){
 				/* Jump if equal to newly created label */
@@ -574,7 +574,7 @@ void generate(FILE *stream, node_t *root){
 				generate(stream, root->children[1]);
 			} else{ /* If if-node has an else statement: */
 				/* Make ELSE label for jump if result == true */
-				char *elseLabel = (char*) malloc(sizeof(char)*14);
+				char *elseLabel = (char*) malloc(sizeof(char));
 				sprintf(elseLabel, "ELSE%d", ELSE); ELSE++;
 				/* Jump to ELSE statement if true */
 				instruction_add(JUMPEQ, elseLabel, NULL, 0, 0);
