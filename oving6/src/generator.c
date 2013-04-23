@@ -524,34 +524,38 @@ void generate(FILE *stream, node_t *root){
 
 		case WHILE_STATEMENT:
 			{/* Make start-of-while-loop label */
-			// char *start = (char*) malloc(sizeof(char));
-			// sprintf(start, "WHILE_START%d", START); START++;
+			char *startSTRlabel = (char*) malloc(sizeof(char));
+			sprintf(startSTRlabel, "WHILE_START%d:", START);
 
-			// /* Add said label to code */
-			// instruction_add(LABEL, start, NULL, 0, 0);
+			/* Add said label to code */
+			instruction_add(STRING, startSTRlabel, NULL, 0, 0);
 
-			// /* Generate the conditional statement(Expression(s)) */
-			// generate(stream, root->children[0]);
+			/* Generate the conditional statement(Expression(s)) */
+			generate(stream, root->children[0]);
 
-			// /* Compare the result */
-			// instruction_add(POP, eax, NULL, 0, 0);
-			// instruction_add(CMPZERO, eax, NULL, 0, 0);
+			/* Compare the result */
+			instruction_add(POP, eax, NULL, 0, 0);
+			instruction_add(CMPZERO, eax, NULL, 0, 0);
 
-			// /* Make FI label */
-			// char *fiLabel = (char*) malloc(sizeof(char));
-			// sprintf(fiLabel, "WHILE_END%d", FI); FI++;
+			/* Make FI label */
+			char *fiLabel = (char*) malloc(sizeof(char));
+			sprintf(fiLabel, "WHILE_END%d", FI);
 
-			// /* If expression == false, jump to FI label */
-			// instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
+			/* If expression == false, jump to FI label */
+			instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
 
-			// /* Execute THEN statement */
-			// generate(stream, root->children[1]);
+			/* Execute THEN statement */
+			generate(stream, root->children[1]);
 
-			// /* Jump back to start (the "repeat action" of the while loop) */
-			// instruction_add(JUMP, start, NULL, 0, 0);
+			/* Jump back to start (the "repeat action" of the while loop) */
+			char *startLabel = (char*) malloc(sizeof(char));
+			sprintf(startLabel, "WHILE_START%d", START); START++;
+			instruction_add(JUMP, start, NULL, 0, 0);
 
-			// /* Add "FI" label */
-			// instruction_add(LABEL, fiLabel, NULL, 0, 0);
+			/* Add "FI" label */
+			char *fiSTRlabel = (char*) malloc(sizeof(char));
+			sprintf(fiSTRlabel, "WHILE_END%d:", FI); FI++;
+			instruction_add(STRING, fiLabel, NULL, 0, 0);
 			break;}
 
 		case FOR_STATEMENT:
