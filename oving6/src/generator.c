@@ -539,7 +539,7 @@ void generate(FILE *stream, node_t *root){
 
 			/* Make IF label */
 			char *fiLabel = (char*) malloc(18*sizeof(char));
-			sprintf(fiLabel, "WHILE_END%d", WHILEE); WHILEE++;
+			sprintf(fiLabel, "WHILE_END%d", FI); FI++;
 
 			/* If expression == false, jump to FI label */
 			instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
