@@ -526,23 +526,35 @@ void generate(FILE *stream, node_t *root){
 			{/* Make start-of-while-loop label */
 			char *start = (char*) malloc(20*sizeof(char));
 			sprintf(start, "WHILE_START%d", WHILES); WHILES++;
+
 			/* Add said label to code */
 			instruction_add(LABEL, start, NULL, 0, 0);
+
 			/* Generate the conditional statement(Expression(s)) */
 			generate(stream, root->children[0]);
+
 			/* Compare the result */
 			instruction_add(POP, eax, NULL, 0, 0);
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
+
 			/* Make end-of-while-loop label */
 			char *end = (char*) malloc(18*sizeof(char));
 			sprintf(end, "WHILE_END%d", WHILEE); WHILEE++;
+
 			/* If expression == false, jump to end label */
 			instruction_add(JUMPEQ, end, NULL, 0, 0);
+
+			/* Execute THEN statement */
 			generate(stream, root->children[1]);
+
+			/* Jump back to start (the repeat action in the while loop) */
 			instruction_add(JUMP, start, NULL, 0, 0);
-			free(start);
+
+			/* Add while-"FI" label */
 			instruction_add(LABEL, end, NULL, 0, 0);
-			free(end);
+
+			// free(start);
+			// free(end);
 			break;}
 
 		case FOR_STATEMENT:
@@ -577,11 +589,11 @@ void generate(FILE *stream, node_t *root){
 				instruction_add(LABEL, labl, NULL, 0, 0);
 				/* Execute ELSE statement */
 				generate(stream, root->children[2]);
-				free(labl);
+				// free(labl);
 			}
 			/* Add FI label */
 			instruction_add(LABEL, temp, NULL, 0, 0);
-			free(temp);
+			// free(temp);
 			break;}
 
 		case NULL_STATEMENT:
