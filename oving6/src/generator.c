@@ -550,12 +550,12 @@ void generate(FILE *stream, node_t *root){
 			/* Jump back to start (the "repeat action" of the while loop) */
 			char *startLabel = (char*) malloc(sizeof(char));
 			sprintf(startLabel, "WHILE_START%d", START); START++;
-			instruction_add(JUMP, start, NULL, 0, 0);
+			instruction_add(JUMP, startLabel, NULL, 0, 0);
 
 			/* Add "FI" label */
 			char *fiSTRlabel = (char*) malloc(sizeof(char));
 			sprintf(fiSTRlabel, "WHILE_END%d:", FI); FI++;
-			instruction_add(STRING, fiLabel, NULL, 0, 0);
+			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
 
 		case FOR_STATEMENT:
