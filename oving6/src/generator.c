@@ -3,7 +3,9 @@
 
 bool peephole = false;
 
-int FI = 0, ELSE = 0;
+int FI = 0, ELSE = 0,
+	WHILES = 0, WHILEE = 0
+	;
 
 /* Elements of the low-level intermediate representation */
 
@@ -521,8 +523,27 @@ void generate(FILE *stream, node_t *root){
 			break;
 
 		case WHILE_STATEMENT:
-				RECUR();
-			break;
+			{/* Make start-of-while-loop label */
+			char *start = (char*) malloc(20*sizeof(char));
+			sprintf(start, "WHILE_START%d", WHILES); WHILES++;
+			/* Add said label to code */
+			instruction_add(LABEL, start, NULL, 0, 0);
+			/* Generate the conditional statement(Expression(s)) */
+			generate(stream, root->children[0]);
+			/* Compare the result */
+			instruction_add(POP, eax, NULL, 0, 0);
+			instruction_add(CMPZERO, eax, NULL, 0, 0);
+			/* Make end-of-while-loop label */
+			char *end = (char*) malloc(18*sizeof(char));
+			sprintf(end, "WHILE_END%d", WHILEE); WHILEE++;
+			/* If expression == false, jump to end label */
+			instruction_add(JUMPEQ, end, NULL, 0, 0);
+			generate(stream, root->children[1]);
+			instruction_add(JUMP, start, NULL, 0, 0);
+			free(start);
+			instruction_add(LABEL, end, NULL, 0, 0);
+			free(end);
+			break;}
 
 		case FOR_STATEMENT:
 				RECUR();
