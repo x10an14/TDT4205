@@ -527,7 +527,7 @@ void generate(FILE *stream, node_t *root){
 			int currentFI = FI; FI++;
 			int currentSTART = START; START++;
 			/* Make start-of-while-loop label */
-			char *startSTRlabel = (char*) calloc(sizeof(char));
+			char *startSTRlabel = (char*) calloc(1, sizeof(char));
 			sprintf(startSTRlabel, "WHILE_START%d:", currentSTART);
 
 			/* Add said label to code */
@@ -541,7 +541,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 
 			/* Make FI label */
-			char *fiLabel = (char*) calloc(sizeof(char));
+			char *fiLabel = (char*) calloc(1, sizeof(char));
 			sprintf(fiLabel, "WHILE_END%d", currentFI);
 
 			/* If expression == false, jump to FI label */
@@ -551,12 +551,12 @@ void generate(FILE *stream, node_t *root){
 			generate(stream, root->children[1]);
 
 			/* Jump back to start (the "repeat action" of the while loop) */
-			char *startLabel = (char*) calloc(sizeof(char));
+			char *startLabel = (char*) calloc(1, sizeof(char));
 			sprintf(startLabel, "WHILE_START%d", currentSTART);
 			instruction_add(JUMP, startLabel, NULL, 0, 0);
 
 			/* Add "FI" label */
-			char *fiSTRlabel = (char*) calloc(sizeof(char));
+			char *fiSTRlabel = (char*) calloc(1, sizeof(char));
 			sprintf(fiSTRlabel, "WHILE_END%d:", currentFI);
 			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
@@ -573,7 +573,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(POP, eax, NULL, 0, 0);
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 			/* Make FI label for jump if result == false */
-			char *fiLabel =(char*) calloc(sizeof(char));
+			char *fiLabel =(char*) calloc(1, sizeof(char));
 			sprintf(fiLabel, "FI%d",currentFI);
 			if(root->n_children == 2){
 				/* Jump if equal to newly created label */
@@ -583,7 +583,7 @@ void generate(FILE *stream, node_t *root){
 			} else{ /* If if-node has an else statement: */
 				int currentELSE = ELSE; ELSE++;
 				/* Make ELSE label for jump if result == true */
-				char *elseLabel = (char*) calloc(sizeof(char));
+				char *elseLabel = (char*) calloc(1, sizeof(char));
 				sprintf(elseLabel, "ELSE%d", currentELSE);
 				/* Jump to ELSE statement if true */
 				instruction_add(JUMPEQ, elseLabel, NULL, 0, 0);
@@ -592,14 +592,14 @@ void generate(FILE *stream, node_t *root){
 				/* Jump to FI-label (to skip the else) */
 				instruction_add(JUMP, fiLabel, NULL, 0, 0);
 				/* Add ELSE label */
-				char *elseSTRlabel = (char*) calloc(sizeof(char));
+				char *elseSTRlabel = (char*) calloc(1, sizeof(char));
 				sprintf(elseSTRlabel, "ELSE%d:", currentELSE);
 				instruction_add(STRING, elseSTRlabel, NULL, 0, 0);
 				/* Execute ELSE statement */
 				generate(stream, root->children[2]);
 			}
 			/* Add FI label */
-			char *fiSTRlabel = (char*) calloc(sizeof(char));
+			char *fiSTRlabel = (char*) calloc(1, sizeof(char));
 			sprintf(fiSTRlabel, "FI%d:", currentFI);
 			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
