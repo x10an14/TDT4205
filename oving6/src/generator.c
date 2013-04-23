@@ -3,6 +3,7 @@
 
 bool peephole = false;
 
+int FI = 0, ELSE = 0;
 
 /* Elements of the low-level intermediate representation */
 
@@ -83,7 +84,6 @@ static void instructions_finalize(void);
 	instruction_add(PUSH, eax, NULL, 0, 0);			  \
 	instruction_add(SYSCALL, STRDUP("exit"), NULL, 0, 0);\
 } while(false)
-
 
 void generate(FILE *stream, node_t *root){
 	int elegant_solution;
@@ -529,8 +529,39 @@ void generate(FILE *stream, node_t *root){
 			break;
 
 		case IF_STATEMENT:
-				RECUR();
-			break;
+			{/* Generate the conditional statement (Expression(s)) */
+			generate(stream, root->children[0]);
+			/* Compare the result */
+			instruction_add(POP, eax, NULL, 0, 0);
+			instruction_add(CMPZERO, eax, NULL, 0, 0);
+			/* Make FI label for jump if result == false */
+			char *temp =(char*) malloc(sizeof(char) *12);
+			sprintf(temp, "FI%d",FI); FI++;
+			if(root->n_children == 2){
+				/* Jump if equal to newly created label */
+				instruction_add(JUMPEQ, temp, NULL, 0, 0);
+				/* Execute THEN statement */
+				generate(stream, root->children[1]);
+			} else{ /* If if-node has an else statement: */
+				/* Make ELSE label for jump if result == true */
+				char *labl = (char*) malloc(sizeof(char)*14);
+				sprintf(labl, "ELSE%d", ELSE); ELSE++;
+				/* Jump to ELSE statement if true */
+				instruction_add(JUMPEQ, labl, NULL, 0, 0);
+				/* Execute THEN statement */
+				generate(stream, root->children[1]);
+				/* Jump to FI-label (to skip the else) */
+				instruction_add(JUMP, temp, NULL, 0, 0);
+				/* Add ELSE label */
+				instruction_add(LABEL, labl, NULL, 0, 0);
+				/* Execute ELSE statement */
+				generate(stream, root->children[2]);
+				free(labl);
+			}
+			/* Add FI label */
+			instruction_add(LABEL, temp, NULL, 0, 0);
+			free(temp);
+			break;}
 
 		case NULL_STATEMENT:
 				RECUR();
@@ -542,7 +573,6 @@ void generate(FILE *stream, node_t *root){
 			break;
 	}
 }
-
 
 /* Provided auxiliaries... */
 static void instruction_append(instruction_t *next){
