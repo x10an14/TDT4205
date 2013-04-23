@@ -4,7 +4,7 @@
 bool peephole = false;
 
 int FI = 0, ELSE = 0,
-	WHILES = 0, WHILEE = 0
+	START = 0
 	;
 
 /* Elements of the low-level intermediate representation */
@@ -525,7 +525,7 @@ void generate(FILE *stream, node_t *root){
 		case WHILE_STATEMENT:
 			{/* Make start-of-while-loop label */
 			char *start = (char*) malloc(20*sizeof(char));
-			sprintf(start, "WHILE_START%d", WHILES); WHILES++;
+			sprintf(start, "WHILE_START%d", START); START++;
 
 			/* Add said label to code */
 			instruction_add(LABEL, start, NULL, 0, 0);
@@ -537,12 +537,12 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(POP, eax, NULL, 0, 0);
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 
-			/* Make end-of-while-loop label */
-			char *end = (char*) malloc(18*sizeof(char));
-			sprintf(end, "WHILE_END%d", WHILEE); WHILEE++;
+			/* Make IF label */
+			char *fiLabel = (char*) malloc(18*sizeof(char));
+			sprintf(fiLabel, "WHILE_END%d", WHILEE); WHILEE++;
 
-			/* If expression == false, jump to end label */
-			instruction_add(JUMPEQ, end, NULL, 0, 0);
+			/* If expression == false, jump to FI label */
+			instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
 
 			/* Execute THEN statement */
 			generate(stream, root->children[1]);
@@ -551,10 +551,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(JUMP, start, NULL, 0, 0);
 
 			/* Add while-"FI" label */
-			instruction_add(LABEL, end, NULL, 0, 0);
-
-			// free(start);
-			// free(end);
+			instruction_add(LABEL, fiLabel, NULL, 0, 0);
 			break;}
 
 		case FOR_STATEMENT:
@@ -568,32 +565,30 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(POP, eax, NULL, 0, 0);
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 			/* Make FI label for jump if result == false */
-			char *temp =(char*) malloc(sizeof(char) *12);
-			sprintf(temp, "FI%d",FI); FI++;
+			char *fiLabel =(char*) malloc(sizeof(char) *12);
+			sprintf(fiLabel, "FI%d",FI); FI++;
 			if(root->n_children == 2){
 				/* Jump if equal to newly created label */
-				instruction_add(JUMPEQ, temp, NULL, 0, 0);
+				instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
 				/* Execute THEN statement */
 				generate(stream, root->children[1]);
 			} else{ /* If if-node has an else statement: */
 				/* Make ELSE label for jump if result == true */
-				char *labl = (char*) malloc(sizeof(char)*14);
-				sprintf(labl, "ELSE%d", ELSE); ELSE++;
+				char *elseLabel = (char*) malloc(sizeof(char)*14);
+				sprintf(elseLabel, "ELSE%d", ELSE); ELSE++;
 				/* Jump to ELSE statement if true */
-				instruction_add(JUMPEQ, labl, NULL, 0, 0);
+				instruction_add(JUMPEQ, elseLabel, NULL, 0, 0);
 				/* Execute THEN statement */
 				generate(stream, root->children[1]);
 				/* Jump to FI-label (to skip the else) */
-				instruction_add(JUMP, temp, NULL, 0, 0);
+				instruction_add(JUMP, fiLabel, NULL, 0, 0);
 				/* Add ELSE label */
-				instruction_add(LABEL, labl, NULL, 0, 0);
+				instruction_add(LABEL, elseLabel, NULL, 0, 0);
 				/* Execute ELSE statement */
 				generate(stream, root->children[2]);
-				// free(labl);
 			}
 			/* Add FI label */
-			instruction_add(LABEL, temp, NULL, 0, 0);
-			// free(temp);
+			instruction_add(LABEL, fiLabel, NULL, 0, 0);
 			break;}
 
 		case NULL_STATEMENT:
