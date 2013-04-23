@@ -585,7 +585,7 @@ void generate(FILE *stream, node_t *root){
 				/* Add ELSE label */
 				char *elseSTRlabel = (char*) malloc(sizeof(char));
 				sprintf(elseSTRlabel, "ELSE%d:", ELSE); ELSE++;
-				instruction_add(LABEL, elseSTRlabel, NULL, 0, 0);
+				instruction_add(STRING, elseSTRlabel, NULL, 0, 0);
 				/* Execute ELSE statement */
 				generate(stream, root->children[2]);
 			}
