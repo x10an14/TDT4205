@@ -537,7 +537,7 @@ void generate(FILE *stream, node_t *root){
 			// instruction_add(POP, eax, NULL, 0, 0);
 			// instruction_add(CMPZERO, eax, NULL, 0, 0);
 
-			// /* Make IF label */
+			// /* Make FI label */
 			// char *fiLabel = (char*) malloc(sizeof(char));
 			// sprintf(fiLabel, "WHILE_END%d", FI); FI++;
 
@@ -547,10 +547,10 @@ void generate(FILE *stream, node_t *root){
 			// /* Execute THEN statement */
 			// generate(stream, root->children[1]);
 
-			// /* Jump back to start (the repeat action in the while loop) */
+			// /* Jump back to start (the "repeat action" of the while loop) */
 			// instruction_add(JUMP, start, NULL, 0, 0);
 
-			// /* Add while-"FI" label */
+			// /* Add "FI" label */
 			// instruction_add(LABEL, fiLabel, NULL, 0, 0);
 			break;}
 
@@ -566,7 +566,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 			/* Make FI label for jump if result == false */
 			char *fiLabel =(char*) malloc(sizeof(char));
-			sprintf(fiLabel, "FI%d",FI); FI++;
+			sprintf(fiLabel, "FI%d",FI);
 			if(root->n_children == 2){
 				/* Jump if equal to newly created label */
 				instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
@@ -575,7 +575,7 @@ void generate(FILE *stream, node_t *root){
 			} else{ /* If if-node has an else statement: */
 				/* Make ELSE label for jump if result == true */
 				char *elseLabel = (char*) malloc(sizeof(char));
-				sprintf(elseLabel, "ELSE%d", ELSE); ELSE++;
+				sprintf(elseLabel, "ELSE%d", ELSE);
 				/* Jump to ELSE statement if true */
 				instruction_add(JUMPEQ, elseLabel, NULL, 0, 0);
 				/* Execute THEN statement */
@@ -583,12 +583,16 @@ void generate(FILE *stream, node_t *root){
 				/* Jump to FI-label (to skip the else) */
 				instruction_add(JUMP, fiLabel, NULL, 0, 0);
 				/* Add ELSE label */
-				instruction_add(LABEL, elseLabel, NULL, 0, 0);
+				char *elseSTRlabel = (char*) malloc(sizeof(char));
+				sprintf(elseSTRlabel, "ELSE%d:", ELSE); ELSE++;
+				instruction_add(LABEL, elseSTRlabel, NULL, 0, 0);
 				/* Execute ELSE statement */
 				generate(stream, root->children[2]);
 			}
 			/* Add FI label */
-			instruction_add(LABEL, fiLabel, NULL, 0, 0);
+			char *fiSTRlabel = (char*) malloc(sizeof(char));
+			sprintf(fiSTRlabel, "FI%d:", FI); FI++;
+			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
 
 		case NULL_STATEMENT:
@@ -811,10 +815,10 @@ static void instructions_finalize(void){
 	while(this != NULL){
 		next = this->next;
 		if(this->operands[0] != eax && this->operands[0] != ebx &&
-				this->operands[0] != ecx && this->operands[0] != edx &&
-				this->operands[0] != ebp && this->operands[0] != esp &&
-				this->operands[0] != esi && this->operands[0] != edi &&
-				this->operands[0] != al && this->operands[0] != bl)
+			this->operands[0] != ecx && this->operands[0] != edx &&
+			this->operands[0] != ebp && this->operands[0] != esp &&
+			this->operands[0] != esi && this->operands[0] != edi &&
+			this->operands[0] != al && this->operands[0] != bl)
 			free(this->operands[0]);
 		free(this);
 		this = next;
