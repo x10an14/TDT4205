@@ -622,9 +622,9 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(JUMP, startLabel, NULL, 0, 0);
 
 			/* Create and add end label */
-			char *fiLabel = (char*) calloc(1, sizeof(char));
-			sprintf(fiLabel, "FI%d:", currentFI);
-			instruction_add(STRING, fiLabel, NULL, 0, 0);
+			char *fiSTRlabel = (char*) calloc(1, sizeof(char));
+			sprintf(fiSTRlabel, "FI%d:", currentFI);
+			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
 
 		case IF_STATEMENT:
