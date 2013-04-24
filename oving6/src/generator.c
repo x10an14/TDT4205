@@ -524,41 +524,41 @@ void generate(FILE *stream, node_t *root){
 
 		case WHILE_STATEMENT:
 			{
-			// int currentFI = FI; FI++;
-			// int currentSTART = START; START++;
-			// /* Make start-of-while-loop label */
-			// char *startSTRlabel = (char*) calloc(1, sizeof(char));
-			// sprintf(startSTRlabel, "WHILE_START%d:", currentSTART);
+			int currentFI = FI; FI++;
+			int currentSTART = START; START++;
+			/* Make start-of-while-loop label */
+			char *startSTRlabel = (char*) calloc(1, sizeof(char));
+			sprintf(startSTRlabel, "WHILE_START%d:", currentSTART);
 
-			// /* Add said label to code */
-			// instruction_add(STRING, startSTRlabel, NULL, 0, 0);
+			/* Add said label to code */
+			instruction_add(STRING, startSTRlabel, NULL, 0, 0);
 
-			// /* Generate the conditional statement(Expression(s)) */
-			// generate(stream, root->children[0]);
+			/* Generate the conditional statement(Expression(s)) */
+			generate(stream, root->children[0]);
 
-			// /* Compare the result */
-			// instruction_add(POP, eax, NULL, 0, 0);
-			// instruction_add(CMPZERO, eax, NULL, 0, 0);
+			/* Compare the result */
+			instruction_add(POP, eax, NULL, 0, 0);
+			instruction_add(CMPZERO, eax, NULL, 0, 0);
 
-			// /* Make FI label */
-			// char *fiLabel = (char*) calloc(1, sizeof(char));
-			// sprintf(fiLabel, "WHILE_END%d", currentFI);
+			/* Make FI label */
+			char *fiLabel = (char*) calloc(1, sizeof(char));
+			sprintf(fiLabel, "WHILE_END%d", currentFI);
 
-			// /* If expression == false, jump to FI label */
-			// instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
+			/* If expression == false, jump to FI label */
+			instruction_add(JUMPEQ, fiLabel, NULL, 0, 0);
 
-			// /* Execute THEN statement */
-			// generate(stream, root->children[1]);
+			/* Execute THEN statement */
+			generate(stream, root->children[1]);
 
-			// /* Jump back to start (the "repeat action" of the while loop) */
-			// char *startLabel = (char*) calloc(1, sizeof(char));
-			// sprintf(startLabel, "WHILE_START%d", currentSTART);
-			// instruction_add(JUMP, startLabel, NULL, 0, 0);
+			/* Jump back to start (the "repeat action" of the while loop) */
+			char *startLabel = (char*) calloc(1, sizeof(char));
+			sprintf(startLabel, "WHILE_START%d", currentSTART);
+			instruction_add(JUMP, startLabel, NULL, 0, 0);
 
-			// /* Add "FI" label */
-			// char *fiSTRlabel = (char*) calloc(1, sizeof(char));
-			// sprintf(fiSTRlabel, "WHILE_END%d:", currentFI);
-			// instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
+			/* Add "FI" label */
+			char *fiSTRlabel = (char*) calloc(1, sizeof(char));
+			sprintf(fiSTRlabel, "WHILE_END%d:", currentFI);
+			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
 
 		case FOR_STATEMENT:
