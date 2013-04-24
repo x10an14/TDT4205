@@ -3,9 +3,7 @@
 
 bool peephole = false;
 
-int FI = 0, ELSE = 0,
-	START = 0
-	;
+int FI = 0, ELSE = 0, START = 0;
 
 /* Elements of the low-level intermediate representation */
 
@@ -568,56 +566,52 @@ void generate(FILE *stream, node_t *root){
 
 			/* Generate assignment statement */
 			generate(stream, root->children[0]);
-			/* Generate expression statement */
-			generate(stream, root->children[1]);
 
-			/* Get counter and end variable into a "comparable" state */
-			int cntr = *(int*)root->children[0]->children[0]->data;
-			int cmpr = *(int*)root->children[1]->children[0]->data;
-			char *cntrSTR = calloc(1, sizeof(char));
-			sprintf(cntrSTR, "$%d", cntr);
-			instruction_add(MOVE, cntrSTR, eax, 0, 0);
-			instruction_add(PUSH, eax, NULL, 0, 0);
-			char *cmprSTR = calloc(1, sizeof(char));
-			sprintf(cmprSTR, "$%d", cmpr);
-			instruction_add(MOVE, cmprSTR, eax, 0, 0);
-			instruction_add(PUSH, eax, NULL, 0, 0);
+			/* Unwind to find counter value */
+			instruction_add(MOVE, STRDUP("(%ebp)"), esi, 0, 0);
+			int depth_difference = depth - root->children[0]->children[0]->entry->depth;
+			for(int i = 0; i < depth_difference; i++){
+				instruction_add(MOVE, STRDUP("(%esi"), esi, 0, 0);
+			}
+			int offset = root->children[0]->children[0]->entry->stack_offset;
+
+			/* Set counter to start value */
+			instruction_add(MOVE, STRDUP("(%esi"), esi, offset, 0);
 
 			/* Making and adding start-label */
 			char *startSTRlabel = (char*) calloc(20, sizeof(char));
 			sprintf(startSTRlabel, "FOR_START%d:", currentSTART);
 			instruction_add(STRING, startSTRlabel, NULL, 0, 0);
 
+			/* Generate expression statement */
+			generate(stream, root->children[1]);
+
 			/* Compare and see if cntr is bigger or equal to cmpr */
 			instruction_add(POP, eax, NULL, 0, 0);
-			instruction_add(POP, esi, NULL, 0, 0);
 			instruction_add(CMP, esi, eax, 0, 0);
 			instruction_add(SETGE, al, NULL, 0, 0);
 			instruction_add(CBW, NULL, NULL, 0, 0);
 			instruction_add(CWDE, NULL, NULL, 0, 0);
 			instruction_add(CMP, STRDUP("$0"), eax, 0, 0);
 
-			/* Push value in esi back onto stack in case of nesting */
-			instruction_add(PUSH, esi, NULL, 0, 0);
-
 			/* Make FI label to jump to if true */
 			char *fiLabel = (char*) calloc(20, sizeof(char));
 			sprintf(fiLabel, "FI%d", currentFI);
 			instruction_add(JUMPNONZ, fiLabel, NULL, 0, 0);
 
-			/* Looping body contents */
+			/* "Looping body" content */
 			generate(stream, root->children[2]);
 
-			/* Increment counter and push onto stack */
-			instruction_add(POP, esi, NULL, 0, 0);
-			instruction_add(ADD, STRDUP("$1"), esi, 0, 0);
-			instruction_add(PUSH, esi, NULL, 0, 0);
+			/* Unwind to find counter value */
+			instruction_add(MOVE, STRDUP("(%ebp)"), esi, 0, 0);
+			depth_difference = depth - root->children[0]->children[0]->entry->depth;
+			for(int i = 0; i < depth_difference; i++){
+				instruction_add(MOVE, STRDUP("(%esi"), esi, 0, 0);
+			}
+			offset = root->children[0]->children[0]->entry->stack_offset;
 
-			/* In case register was used, re-create cmpr value and push onto stack */
-			char *cmprSTR2 = calloc(20, sizeof(char));
-			sprintf(cmprSTR2, "$%d", cmpr);
-			instruction_add(MOVE, cmprSTR2, esi, 0, 0);
-			instruction_add(PUSH, esi, NULL, 0, 0);
+			/* Increment counter */
+			instruction_add(ADD, STRDUP("$1"), STRDUP("(%esi)"), 0, offset);
 
 			/* jump back to start label to continue with loop */
 			char *startLabel = (char*) calloc(20, sizeof(char));
