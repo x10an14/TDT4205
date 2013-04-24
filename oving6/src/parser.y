@@ -58,12 +58,12 @@ int yylex ( void );                 /* Defined in the generated scanner */
 
 /* Tokens for all the key words in VSL */
 %token NUMBER STRING IDENTIFIER ASSIGN FUNC PRINT RETURN CONTINUE
-%token IF THEN ELSE FI WHILE DO DONE VAR FOR TO 
+%token IF THEN ELSE FI WHILE DO DONE VAR FOR TO
 %token EQUAL GEQUAL LEQUAL NEQUAL
 
 
 /*
- * Operator precedences: 
+ * Operator precedences:
  * + and - bind to the left { a+b+c = (a+b)+c }
  * * and / bind left like + and -, but has higher precedence
  * Unary minus has only one operand (and thus no direction), but highest
@@ -88,7 +88,7 @@ int yylex ( void );                 /* Defined in the generated scanner */
  * the number of passes over the syntax tree), but sticking to a parser which
  * only generates a tree makes it easier to rule it out as an error source in
  * later debugging.
- */ 
+ */
 
 %%
 program: function_list {
@@ -186,7 +186,7 @@ integer:
         *((int32_t *)$$->data) = strtol ( yytext, NULL, 10 );
       }
     ;
-%% 
+%%
 
 /*
  * This function is called with an error description when parsing fails.
