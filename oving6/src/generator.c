@@ -588,7 +588,7 @@ void generate(FILE *stream, node_t *root){
 
 			/* Compare and see if cntr is bigger or equal to cmpr */
 			instruction_add(POP, eax, NULL, 0, 0);
-			instruction_add(CMP, esi, eax, 0, 0);
+			instruction_add(CMP, eax, esi, 0, 0);
 			instruction_add(SETGE, al, NULL, 0, 0);
 			instruction_add(CBW, NULL, NULL, 0, 0);
 			instruction_add(CWDE, NULL, NULL, 0, 0);
@@ -597,7 +597,7 @@ void generate(FILE *stream, node_t *root){
 			/* Make FI label to jump to if true */
 			char *fiLabel = (char*) calloc(20, sizeof(char));
 			sprintf(fiLabel, "FI%d", currentFI);
-			instruction_add(JUMPZERO, fiLabel, NULL, 0, 0);
+			instruction_add(JUMPNONZ, fiLabel, NULL, 0, 0);
 
 			/* "Looping body" content */
 			generate(stream, root->children[2]);
