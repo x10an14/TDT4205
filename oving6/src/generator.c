@@ -567,8 +567,13 @@ void generate(FILE *stream, node_t *root){
 			/* Generate assignment statement */
 			generate(stream, root->children[0]);
 
+			/* Making and adding start-label */
+			char *startSTRlabel = (char*) calloc(20, sizeof(char));
+			sprintf(startSTRlabel, "FOR_START%d:", currentSTART);
+			instruction_add(STRING, startSTRlabel, NULL, 0, 0);
+
 			/* Unwind to find counter value */
-			instruction_add(MOVE, STRDUP("(%ebp)"), esi, 0, 0);
+			instruction_add(MOVE, ebp, esi, 0, 0);
 			int depth_difference = depth - root->children[0]->children[0]->entry->depth;
 			for(int i = 0; i < depth_difference; i++){
 				instruction_add(MOVE, STRDUP("(%esi"), esi, 0, 0);
@@ -577,11 +582,6 @@ void generate(FILE *stream, node_t *root){
 
 			/* Set counter to start value */
 			instruction_add(MOVE, esi, esi, offset, 0);
-
-			/* Making and adding start-label */
-			char *startSTRlabel = (char*) calloc(20, sizeof(char));
-			sprintf(startSTRlabel, "FOR_START%d:", currentSTART);
-			instruction_add(STRING, startSTRlabel, NULL, 0, 0);
 
 			/* Generate expression statement */
 			generate(stream, root->children[1]);
@@ -603,7 +603,7 @@ void generate(FILE *stream, node_t *root){
 			generate(stream, root->children[2]);
 
 			/* Unwind to find counter value */
-			instruction_add(MOVE, STRDUP("(%ebp)"), esi, 0, 0);
+			instruction_add(MOVE, ebp, esi, 0, 0);
 			depth_difference = depth - root->children[0]->children[0]->entry->depth;
 			for(int i = 0; i < depth_difference; i++){
 				instruction_add(MOVE, STRDUP("(%esi"), esi, 0, 0);
