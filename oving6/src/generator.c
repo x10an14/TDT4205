@@ -527,7 +527,7 @@ void generate(FILE *stream, node_t *root){
 			int currentFI = FI; FI++;
 			int currentSTART = START; START++;
 			/* Make start-of-while-loop label */
-			char *startSTRlabel = (char*) calloc(1, sizeof(char));
+			char *startSTRlabel = (char*) calloc(20, sizeof(char));
 			sprintf(startSTRlabel, "WHILE_START%d:", currentSTART);
 
 			/* Add said label to code */
@@ -541,7 +541,7 @@ void generate(FILE *stream, node_t *root){
 			instruction_add(CMPZERO, eax, NULL, 0, 0);
 
 			/* Make FI label */
-			char *fiLabel = (char*) calloc(1, sizeof(char));
+			char *fiLabel = (char*) calloc(20, sizeof(char));
 			sprintf(fiLabel, "WHILE_END%d", currentFI);
 
 			/* If expression == false, jump to FI label */
@@ -551,12 +551,12 @@ void generate(FILE *stream, node_t *root){
 			generate(stream, root->children[1]);
 
 			/* Jump back to start (the "repeat action" of the while loop) */
-			char *startLabel = (char*) calloc(1, sizeof(char));
+			char *startLabel = (char*) calloc(20, sizeof(char));
 			sprintf(startLabel, "WHILE_START%d", currentSTART);
 			instruction_add(JUMP, startLabel, NULL, 0, 0);
 
 			/* Add "FI" label */
-			char *fiSTRlabel = (char*) calloc(1, sizeof(char));
+			char *fiSTRlabel = (char*) calloc(20, sizeof(char));
 			sprintf(fiSTRlabel, "WHILE_END%d:", currentFI);
 			instruction_add(STRING, fiSTRlabel, NULL, 0, 0);
 			break;}
