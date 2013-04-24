@@ -576,7 +576,7 @@ void generate(FILE *stream, node_t *root){
 			int offset = root->children[0]->children[0]->entry->stack_offset;
 
 			/* Set counter to start value */
-			instruction_add(MOVE, STRDUP("(%esi"), esi, offset, 0);
+			instruction_add(MOVE, esi, esi, offset, 0);
 
 			/* Making and adding start-label */
 			char *startSTRlabel = (char*) calloc(20, sizeof(char));
@@ -611,7 +611,7 @@ void generate(FILE *stream, node_t *root){
 			offset = root->children[0]->children[0]->entry->stack_offset;
 
 			/* Increment counter */
-			instruction_add(ADD, STRDUP("$1"), STRDUP("(%esi)"), 0, offset);
+			instruction_add(ADD, STRDUP("$1"), esi, 0, offset);
 
 			/* jump back to start label to continue with loop */
 			char *startLabel = (char*) calloc(20, sizeof(char));
